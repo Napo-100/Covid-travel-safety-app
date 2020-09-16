@@ -1,1 +1,1 @@
-# Covid-travel-saftey-app
+# Covid-travel-safety-app
