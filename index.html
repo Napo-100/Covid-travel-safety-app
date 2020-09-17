@@ -1,11 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css"
+        integrity="sha512-LeCmts7kEi09nKc+DwGJqDV+dNQi/W8/qb0oUSsBLzTYiBwxj0KBlAow2//jV7jwEHwSCPShRN2+IWwWcn1x7Q=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
+        integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Document</title>
+
 </head>
+
 <body>
-    
+
+    <header>
+        <section class="mobile hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        TourVid
+                    </h1>
+                    <h3 class="subtitle">
+                        Your travel saftey information guide
+                    </h3>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <section class="mobile container columns mt-5">
+        <form class="column">
+            <input type="text" placeholder="Enter City" autocomplete="on">
+        </form>
+        <form class="column">
+            <input type="text" placeholder="Enter Travel Dates">
+            <button type="submit" class="button is-primary">Search!</button>
+        </form>
+    </section>
+
+    <div class="container" id="search-history">
+        <header>
+            <h2>Search History</h2>
+            <ul>
+                <li>city 1</li>
+                <li>city 2</li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="container" id="search-results">
+        <h2>covid</h2>
+        <h2>news</h2>
+        <h2>weather</h2>
+        <h2>places of interest</h2>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
 </body>
+
 </html>
