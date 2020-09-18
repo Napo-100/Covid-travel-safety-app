@@ -13,72 +13,97 @@
         integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <title>TourVid travel planner</title>
 
 </head>
 
 <body>
 
     <header>
-        <section class="mobile hero is-primary">
+        <section class="mobile hero is-info">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        TourVid Application
+                        TourVid
                     </h1>
                     <h3 class="subtitle">
-                        Your travel saftey information guide
+                        Your travel safety information guide
                     </h3>
                 </div>
             </div>
         </section>
     </header>
 
-    <section class="mobile container columns mt-5">
-        <form class="column">
-            <input type="text" placeholder="Enter City" autocomplete="on">
-        </form>
-        <form class="column">
-            <input type="text" placeholder="Enter Travel Dates">
-            <button type="submit" class="button is-primary">Search!</button>
-        </form>
-    </section>
-
-    <div class="container" id="search-history">
-        <header>
-            <h2>Search History</h2>
-            <ul>
-                <li>city 1</li>
-                <li>city 2</li>
-            </ul>
-        </header>
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <p class="title">
+                <h3>City name:</h3>
+                <input type="text" placeholder="Enter City name" class="column level-left input is-small">
+                <h3>From:</h3>
+                <input type="text" placeholder="MM/DD/YYYY" class="column level-left input is-small">
+                <h3>To:</h3>
+                <input type="text" placeholder="MM/DD/YYYY" class="column level-left input is-small">
+                </p>
+                <p class="subtitle">
+                    <button type="submit" class="button is-info mt-3">Search!</button>
+                </p>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
+                        tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+                </div>
+            </article>
+        </div>
+        <div class="tile is-parent is-9 hide" id="Main-container">
+            <article class="tile is-child box">
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical is-12" >
+                        <div class="tile">
+                            <div class="tile is-parent is-vertical">
+                                <article class="tile is-child notification is-primary">
+                                    <p class="title">COVID-19</p>
+                                    <p class="subtitle">Top tile</p>
+                                </article>
+                                <article class="tile is-child notification is-warning">
+                                    <p class="title">...tiles</p>
+                                    <p class="subtitle">Bottom tile</p>
+                                </article>
+                            </div>
+                            <div class="tile is-parent">
+                                <article class="tile is-child notification is-info">
+                                    <p class="title">City Name</p>
+                                    <p class="subtitle">With an image</p>
+                                    <figure class="image is-4by3">
+                                        <img src="https://bulma.io/images/placeholders/640x480.png">
+                                    </figure>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification is-danger">
+                                <p class="title">Weather Forecast</p>
+                                <p class="subtitle">Aligned with the right tile</p>
+                                <div class="content">
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
     </div>
 
-    <div class="container" id="search-results">
-        <h2>covid</h2>
-        <h2>news</h2>
-        <h2>weather</h2>
-        <h2>places of interest</h2>
-    </div>
 
-
-
-
-
-
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
-        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
-        crossorigin="anonymous"></script>
-    <script src="assets/js/script.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+                    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+                    crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+                    integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+                    crossorigin="anonymous"></script>
+                <script src="assets/js/script.js"></script>
 </body>
 
 </html>
