@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css"
         integrity="sha512-LeCmts7kEi09nKc+DwGJqDV+dNQi/W8/qb0oUSsBLzTYiBwxj0KBlAow2//jV7jwEHwSCPShRN2+IWwWcn1x7Q=="
         crossorigin="anonymous" />
-    <link href="~bulma-calendar/dist/css/bulma-calendar.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-calendar@6.0.9/dist/js/bulma-calendar.min.js" rel="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
         integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
@@ -39,19 +39,21 @@
         <div class="tile is-parent">
             <form class="tile is-child box">
                 <p class="title">
-                <h3>City name:</h3>
-                <input required type="text" placeholder="Enter City name" class="column level-left input is-small">
+                    <label class="label">Name</label>
+                    <input required type="text" placeholder="Enter City name"
+                        class="is-rounded column level-left input is-small" id="search-input">
                 <h3>From:</h3>
                 <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small" id="fromDate">
                 <h3>To:</h3>
                 <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small">
                 </p>
                 <p class="subtitle">
-                    <button type="submit" class="button is-info mt-3">Search!</button>
+                    <button type="submit" class="button is-info mt-3" id="search-btn">Search!</button>
                 </p>
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
-                        tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+                <div class="select is-multiple">
+                    <select multiple size="8" id="search-history">
+                        <!-- <option value="Argentina">Argentina</option> -->
+                    </select>
                 </div>
             </form>
         </div>
@@ -94,7 +96,6 @@
         </div>
     </div>
 
-    <script src="~bulma-calendar/dist/js/bulma-calendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
@@ -105,6 +106,7 @@
         integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
         crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/search-handler.js"></script>
 </body>
 
 </html>
