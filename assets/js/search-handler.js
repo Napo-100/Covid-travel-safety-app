@@ -10,7 +10,7 @@ var searchHandler = function (cityName) {
     console.log(cityName);
     if (cityName) {
         // getWeatherInfo(cityName);
-        // getCovidInfo(cityName);
+        getCovidInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
     } else {
@@ -35,5 +35,24 @@ var clickCity = function () {
     getWeatherInfo(cityName);
 }
 
+// Google news API
+var getCovidInfo = function (cityName) {
+    var CovidURL = 'https://newsapi.org/v2/everything?' +
+        'q=Covid-19&' +
+        'from=2020-09-20&' +
+        'sortBy=popularity&' +
+        'apiKey=8aea300283df41ffbff28ff35de2567e';
+
+    fetch(CovidURL)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                })
+            } 
+            // else {
+            //     alert("Error: " + response.statusText);}
+        })
+};
 
 searchBtn.addEventListener("click", searchHandler);
