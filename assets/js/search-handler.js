@@ -26,7 +26,7 @@ var cityHistory = function (city) {
     historyEl.textContent = city;
     searchHistory.append(historyEl);
 
-    // historyEl.onclick = clickCity;
+    historyEl.onclick = clickCity;
 }
 
 // function to call back clickable cities from the history
