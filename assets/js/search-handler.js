@@ -70,8 +70,8 @@ var searchHandler = function (cityName) {
 var displayTourismInfo = function(data){
     //debugger
     //console.log(data.results[0].images[9].source_url)
-    var cityImageSrc = "https://upload.wikimedia.org/wikipedia/commons/0/09/Buffalo_Bayou_at_Sesquicentennial_Park.jpg"
-    
+    var cityImageSrc = data.results[0].images[9].source_url
+
     var cityImageDisplay = "<img src=" + cityImageSrc + "/>"
     var cityImageEl = document.querySelector('#city-display')
     cityImageEl.innerHTML = cityImageDisplay
