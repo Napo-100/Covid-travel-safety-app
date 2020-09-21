@@ -1,11 +1,34 @@
 var searchBtn = document.getElementById("search-btn");
 var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
-<<<<<<< HEAD
-
-
-=======
 var display = document.querySelector(".main-container")
+
+
+
+var getTourismInfo = function(searchInput){
+   var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
+    //var formatImage = "&image_sizes=medium"
+   var tourismApi = "https://www.triposo.com/api/20200803/location.json?id=" + searchInput + accountParams;
+
+   fetch(tourismApi)
+        .then(function(response){
+            if (response.ok){
+                response.json().then(function (data) {
+                    console.log(data);
+                    displayTourismInfo(data);
+                    //var imageCount = data.results[0].images.length
+                    //console.log(imageCount)
+                }) 
+            }
+        })
+
+
+}
+
+
+
+
+
 
 
 
@@ -25,35 +48,36 @@ var getWeatherInfo = function (searchInput) {
         })
     }
 
->>>>>>> feature/weatherAPI
 // Search button function
 var searchHandler = function (cityName) {
     cityName.preventDefault();
     var cityName = searchInput.value.trim();
     console.log(cityName);
-<<<<<<< HEAD
-    if (cityName) {
-        // getWeatherInfo(cityName);
-        // getCovidInfo(cityName);
-        cityHistory(cityName);
-        searchInput.value = "";
-=======
 
 
     if (cityName) {
+        getTourismInfo(cityName)
         getWeatherInfo(cityName);
         // getCovidInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
 
->>>>>>> feature/weatherAPI
     } else {
         swal("You entered an invalid city name!", "Please enter a valid one");
     }
 };
 
-<<<<<<< HEAD
-=======
+var displayTourismInfo = function(data){
+    //debugger
+    //console.log(data.results[0].images[9].source_url)
+    var cityImageSrc = "https://upload.wikimedia.org/wikipedia/commons/0/09/Buffalo_Bayou_at_Sesquicentennial_Park.jpg"
+    
+    var cityImageDisplay = "<img src=" + cityImageSrc + "/>"
+    var cityImageEl = document.querySelector('#city-display')
+    cityImageEl.innerHTML = cityImageDisplay
+}
+
+
 var displayWeather = function (data) {
     var currentTemp = data.main.temp;
     console.log(currentTemp)
@@ -77,15 +101,14 @@ var displayWeather = function (data) {
         // shows current weather
         weatherTitle.innerHTML =  "Current Weather " 
         iconToday.innerHTML = iconDisplay
-        tempToday.innerHTML = "Temprature: " + currentTemp;
+        tempToday.innerHTML = "Temperature: " + currentTemp;
         humidToday.innerHTML = "Humidity: " + currentHumid;
         windToday.innerHTML = "Winds: " + currentWind;
         
 
-
+ 
 }
 
->>>>>>> feature/weatherAPI
 // Adding city search to history 
 var cityHistory = function (city) {
     var historyEl = document.createElement('option');
@@ -104,9 +127,6 @@ var clickCity = function () {
 }
 
 
-<<<<<<< HEAD
-searchBtn.addEventListener("click", searchHandler);
-=======
 searchBtn.addEventListener("click", searchHandler);
 searchInput.addEventListener("keyup", function (event) {
     if (event.key === 13) {
@@ -115,4 +135,3 @@ searchInput.addEventListener("keyup", function (event) {
 
 });
 
->>>>>>> feature/weatherAPI
