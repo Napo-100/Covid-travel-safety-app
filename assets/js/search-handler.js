@@ -39,10 +39,9 @@ var searchHandler = function (cityName) {
     }
 };
 
-var displayWeather = function (data, searchInput) {
+var displayWeather = function (data) {
     var currentTemp = data.main.temp;
     console.log(currentTemp)
-    document.querySelector("#weather-data").innerHTML = currentTemp;
     var currentHumid = data.main.humidity;
     console.log(currentHumid)
     var currentWind = data.wind.speed;
@@ -51,10 +50,22 @@ var displayWeather = function (data, searchInput) {
     var currentDate = moment().format("M/D/YYYY")
     console.log(currentDate)
 
-         var iconDisplay = "<img src= 'http://openweathermap.org/img/wn/" + data.weather.icon + "@2x.png' />"
+         var iconDisplay = "<img src= 'http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png' />"
+         console.log(iconDisplay)
 
-        var cityLocation = document.createElement("h2")
-        cityLocation.innerHTML = searchInput + ": " + currentDate
+        var weatherTitle = document.getElementById("weather-title")
+        var tempToday = document.querySelector("#temp-today")
+        var humidToday = document.querySelector("#humid-today")
+        var windToday = document.querySelector("#wind-today")
+        var iconToday = document.getElementById("icon-today")
+        
+        // shows current weather
+        weatherTitle.innerHTML =  "Current Weather " 
+        iconToday.innerHTML = iconDisplay
+        tempToday.innerHTML = "Temprature: " + currentTemp;
+        humidToday.innerHTML = "Humidity: " + currentHumid;
+        windToday.innerHTML = "Winds: " + currentWind;
+        
 
 
 }
