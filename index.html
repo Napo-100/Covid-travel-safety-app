@@ -42,7 +42,11 @@
                     <label class="label">Name</label>
                     <input required type="text" placeholder="Enter City name"
                         class="is-rounded column level-left input is-small" id="search-input">
+<<<<<<< HEAD
                 <!-- <h3>From:</h3>
+=======
+                    <!-- <h3>From:</h3>
+>>>>>>> feature/weatherAPI
                 <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small" id="fromDate">
                 <h3>To:</h3>
                 <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small">
@@ -62,16 +66,7 @@
                 <div class="tile is-ancestor">
                     <div class="tile is-vertical is-12">
                         <div class="tile">
-                            <div class="tile is-parent is-vertical">
-                                <article class="tile is-child notification is-primary">
-                                    <p class="title">COVID-19</p>
-                                    <p class="subtitle">Top tile</p>
-                                </article>
-                                <article class="tile is-child notification is-warning">
-                                    <p class="title">...tiles</p>
-                                    <p class="subtitle">Bottom tile</p>
-                                </article>
-                            </div>
+                            
                             <div class="tile is-parent">
                                 <article class="tile is-child notification is-info">
                                     <p class="title">City Name</p>
@@ -81,14 +76,31 @@
                                     </figure>
                                 </article>
                             </div>
+                            <div class="tile is-parent is-vertical">
+                                <article class="tile is-child notification is-primary">
+                                    <p class="title">COVID-19</p>
+                                    <p class="subtitle">Top tile</p>
+                                    <p class="subtitle">Top tile</p>
+                                    <p class="subtitle">Top tile</p>
+                                </article>
+                                <!-- <article class="tile is-child notification lightblue"> -->
+                                    <article class="tile is-child notification lightblue" id="weather-data">
+                                        <p class="title mb-0" id="weather-title"></p>
+                                        <p id="icon-today"></p>
+                                        <p class="subtitle" id="temp-today"></p>
+                                        <p class="subtitle" id="humid-today"></p>
+                                        <p class="subtitle" id="wind-today"></p> 
+                                    <!-- </article> -->
+                                </article>
+                            </div>
                         </div>
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-danger">
-                                <p class="title">Weather Forecast</p>
-                                <p class="subtitle">Aligned with the right tile</p>
-                                <div class="content">
-                                </div>
-                            </article>
+                                <p class="title">Title</p>
+                                <p class="subtitle">Subtitle</p>
+                                <p class="subtitle">Subtitle</p>
+
+                                
                         </div>
                     </div>
                 </div>
@@ -102,6 +114,9 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
         integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
