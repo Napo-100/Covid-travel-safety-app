@@ -37,22 +37,27 @@ var clickCity = function () {
 
 // Google news API
 var getCovidInfo = function (cityName) {
-    var CovidURL = 'https://newsapi.org/v2/everything?' +
-        'q=Covid-19&' +
-        'from=2020-09-20&' +
-        'sortBy=popularity&' +
-        'apiKey=8aea300283df41ffbff28ff35de2567e';
-
-    fetch(CovidURL)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
-                })
-            } 
-            // else {
-            //     alert("Error: " + response.statusText);}
+    fetch("https://api.covid19api.com/summary")
+        .then((res) => {
+            console.log(res);
+            return res.json();
         })
+        .then((res2) => console.log(res2));
+
+
+
+
+    // var CovidURL = "https://api.traveladviceapi.com/search/US&apiKey=727dfe91-8715-4f37-be24-4028057d3a0f"
+
+    // fetch(CovidURL, { headers: { 'X-Access-Token': '581eca26-2120-40e7-9e24-6bece2d8fd5e' } })
+    //     .then(function (response) {
+    //         return response.json().then(function (data) {
+    //             console.log(data);
+    //         })
+
+    //         // else {
+    //         //     alert("Error: " + response.statusText);}
+    //     })
 };
 
 searchBtn.addEventListener("click", searchHandler);

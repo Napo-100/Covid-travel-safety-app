@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css"
         integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ=="
         crossorigin="anonymous" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <title>TourVid travel planner</title>
 
@@ -43,11 +43,16 @@
                     <label class="label">Name</label>
                     <input required type="text" placeholder="Enter City name"
                         class="is-rounded column level-left input is-small" id="search-input">
-                <!-- <h3>From:</h3>
-                <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small" id="fromDate">
-                <h3>To:</h3>
-                <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small">
-                </p> -->
+                </p>
+
+                <div class="select is-rounded">
+                    <select>
+                        <option disabled selected>Country</option>
+                        <option >United States</option>
+                    </select>
+                </div>
+
+
                 <p class="subtitle">
                     <button type="submit" class="button is-rounded is-info mt-3" id="search-btn">Search!</button>
                 </p>
