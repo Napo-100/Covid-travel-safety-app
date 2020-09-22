@@ -10,10 +10,9 @@ var getCovidInfo = function() {
 
     fetch(covidApi)
     .then(function (response) {
-        console.log(response)
         if (response.ok) {
-            response.json().then(function (info) {
-                console.log(info);
+            response.json().then(function () {
+                console.log(response);
             })
         }
     })
