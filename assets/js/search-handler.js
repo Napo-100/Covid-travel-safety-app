@@ -1,10 +1,6 @@
 var searchBtn = document.getElementById("search-btn");
 var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
-<<<<<<< HEAD
-
-
-=======
 var display = document.querySelector(".main-container")
 
 
@@ -25,19 +21,11 @@ var getWeatherInfo = function (searchInput) {
         })
     }
 
->>>>>>> feature/weatherAPI
 // Search button function
 var searchHandler = function (cityName) {
     cityName.preventDefault();
     var cityName = searchInput.value.trim();
     console.log(cityName);
-<<<<<<< HEAD
-    if (cityName) {
-        // getWeatherInfo(cityName);
-        // getCovidInfo(cityName);
-        cityHistory(cityName);
-        searchInput.value = "";
-=======
 
 
     if (cityName) {
@@ -46,14 +34,11 @@ var searchHandler = function (cityName) {
         cityHistory(cityName);
         searchInput.value = "";
 
->>>>>>> feature/weatherAPI
     } else {
         swal("You entered an invalid city name!", "Please enter a valid one");
     }
 };
 
-<<<<<<< HEAD
-=======
 var displayWeather = function (data) {
     var currentTemp = data.main.temp;
     console.log(currentTemp)
@@ -85,7 +70,6 @@ var displayWeather = function (data) {
 
 }
 
->>>>>>> feature/weatherAPI
 // Adding city search to history 
 var cityHistory = function (city) {
     var historyEl = document.createElement('option');
@@ -104,9 +88,6 @@ var clickCity = function () {
 }
 
 
-<<<<<<< HEAD
-searchBtn.addEventListener("click", searchHandler);
-=======
 searchBtn.addEventListener("click", searchHandler);
 searchInput.addEventListener("keyup", function (event) {
     if (event.key === 13) {
@@ -115,4 +96,3 @@ searchInput.addEventListener("keyup", function (event) {
 
 });
 
->>>>>>> feature/weatherAPI
