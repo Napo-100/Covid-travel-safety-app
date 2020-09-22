@@ -2,7 +2,7 @@ var searchBtn = document.getElementById("search-btn");
 var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
-
+//test
 
 var getCovidInfo = function() {
     
