@@ -2,27 +2,12 @@ var searchBtn = document.getElementById("search-btn");
 var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
-//test
-
-var getCovidInfo = function() {
-    
-    var covidApi = "https://newsapi.org/v2/top-headlines?q=trump&apiKey=23e27aa6063848ffba38a43686e1b7b7"
-
-    fetch(covidApi)
-    .then(function (response) {
-        if (response.ok) {
-            response.json().then(function () {
-                console.log(response);
-            })
-        }
-    })
-
-}
 
 
-var getWeatherInfo = function (searchInput) {
 
-    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
+var getWeatherInfo = function (cityName) {
+
+    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
 
     fetch(weatherApi)
         .then(function (response) {
@@ -31,7 +16,10 @@ var getWeatherInfo = function (searchInput) {
                     console.log(data);
                     $("#Main-container").removeClass("hide")
                     displayWeather(data)
+                    cityHistory(cityName);
                 })
+            } else {
+                swal("You entered an invalid city name!", "Please enter a valid one");
             }
         })
     }
@@ -46,9 +34,9 @@ var searchHandler = function (cityName) {
     if (cityName) {
         getWeatherInfo(cityName);
         // getCovidInfo(cityName);
-        cityHistory(cityName);
+        
         searchInput.value = "";
-        getCovidInfo();
+        // getCovidInfo(info);
 
     } else {
         swal("You entered an invalid city name!", "Please enter a valid one");
