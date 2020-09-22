@@ -5,9 +5,9 @@ var display = document.querySelector(".main-container")
 
 
 
-var getWeatherInfo = function (searchInput) {
+var getWeatherInfo = function (cityName) {
 
-    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
+    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
 
     fetch(weatherApi)
         .then(function (response) {
@@ -16,7 +16,10 @@ var getWeatherInfo = function (searchInput) {
                     console.log(data);
                     $("#Main-container").removeClass("hide")
                     displayWeather(data)
+                    cityHistory(cityName);
                 })
+            } else {
+                swal("You entered an invalid city name!", "Please enter a valid one");
             }
         })
     }
@@ -31,8 +34,9 @@ var searchHandler = function (cityName) {
     if (cityName) {
         getWeatherInfo(cityName);
         // getCovidInfo(cityName);
-        cityHistory(cityName);
+        
         searchInput.value = "";
+        // getCovidInfo(info);
 
     } else {
         swal("You entered an invalid city name!", "Please enter a valid one");
