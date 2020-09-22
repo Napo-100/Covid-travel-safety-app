@@ -41,7 +41,9 @@
                 <p class="title">
                     <label class="label">Name</label>
                     <input required type="text" placeholder="Enter City name"
-                        class="is-rounded column level-left input is-small" id="search-input">
+                        class="is-rounded column level-left input is-small form-control" id="search-input"/>
+                        <input type="hidden" id="loc_lat" />
+                         <input type="hidden" id="loc_long" />
                     <!-- <h3>From:</h3>
                 <input type="date" placeholder="MM/DD/YYYY" class="column level-left input is-small" id="fromDate">
                 <h3>To:</h3>
@@ -65,11 +67,15 @@
                             
                             <div class="tile is-parent">
                                 <article class="tile is-child notification is-info">
-                                    <p class="title">City Name</p>
-                                    <p class="subtitle">With an image</p>
+                                    <p class="title" id = "city-title">City Name</p>
+                                    <p class="subtitle" id="state-subtitle">With an image</p>
                                     <figure id= "city-display" class="image is-4by3">
                                         <img src="https://bulma.io/images/placeholders/640x480.png">
                                     </figure>
+                                    <div class = "content">
+                                        <p id = "city-snippet">City information text</p>
+                                    </div>
+                                    
                                 </article>
                             </div>
                             <div class="tile is-parent is-vertical">
@@ -119,6 +125,7 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/search-handler.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUAjjsvOBEJA5gFf_7hpJ8qtVimWyncXg&libraries=places"></script>
 </body>
 
 </html>

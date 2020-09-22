@@ -5,6 +5,13 @@ var display = document.querySelector(".main-container")
 
 
 
+var input = document.getElementById('search-input');
+//maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+
+
 var getTourismInfo = function(searchInput){
    var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
     //var formatImage = "&image_sizes=medium"
@@ -70,11 +77,17 @@ var searchHandler = function (cityName) {
 var displayTourismInfo = function(data){
     //debugger
     //console.log(data.results[0].images[9].source_url)
-    var cityImageSrc = data.results[0].images[9].source_url
-
-    var cityImageDisplay = "<img src=" + cityImageSrc + "/>"
+    var cityImageSrc = data.results[0].images[0].source_url
+    var cityImageDisplay = `<img src="${cityImageSrc}"/>`
     var cityImageEl = document.querySelector('#city-display')
+    var cityTitle = document.querySelector('#city-title')
+    var stateSubtitle = document.querySelector('#state-subtitle')
+    var snippetEl = document.querySelector('#city-snippet')
+    
     cityImageEl.innerHTML = cityImageDisplay
+    cityTitle.textContent = data.results[0].name
+    stateSubtitle.textContent = data.results[0].parent_id
+    snippetEl.textContent = data.results[0].snippet
 }
 
 
