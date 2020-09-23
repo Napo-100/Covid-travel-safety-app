@@ -13,13 +13,14 @@ var searchHandler = function (cityName) {
     var cityName = searchInput.value.trim();
     console.log(cityName);
     if (cityName) {
+        $("#Main-container").removeClass("hide")
         getTourismInfo(cityName)
         getWeatherInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
         getCountryOption();
         getStateOption();
-        $("#Main-container").removeClass("hide")
+        
         
     }
      else {
@@ -38,7 +39,7 @@ var getTourismInfo = function (searchInput) {
             if (response.ok) {
                 response.json().then(function (data) {
                     console.log(data);
-                    displayTourismInfo(data);
+                    // displayTourismInfo(data);
                     //var imageCount = data.results[0].images.length
                     //console.log(imageCount)
                 })
@@ -47,22 +48,22 @@ var getTourismInfo = function (searchInput) {
         
 }
 
-var displayTourismInfo = function (data) {
-    console.log(data)
-    //debugger
-    //console.log(data.results[0].images[9].source_url)
-    var cityImageSrc = data.results[0].images[0].source_url
-    var cityImageDisplay = `<img src="${cityImageSrc}"/>`
-    var cityImageEl = document.querySelector('#city-display')
-    var cityTitle = document.querySelector('#city-title')
-    var stateSubtitle = document.querySelector('#state-subtitle')
-    var snippetEl = document.querySelector('#city-snippet')
+// var displayTourismInfo = function (data) {
+//     console.log(data)
+//     //debugger
+//     //console.log(data.results[0].images[9].source_url)
+//     var cityImageSrc = data.results[0].images[0].source_url
+//     var cityImageDisplay = `<img src="${cityImageSrc}"/>`
+//     var cityImageEl = document.querySelector('#city-display')
+//     var cityTitle = document.querySelector('#city-title')
+//     var stateSubtitle = document.querySelector('#state-subtitle')
+//     var snippetEl = document.querySelector('#city-snippet')
 
-    cityImageEl.innerHTML = cityImageDisplay
-    cityTitle.textContent = data.results[0].name
-    stateSubtitle.textContent = data.results[0].parent_id
-    snippetEl.textContent = data.results[0].snippet
-}
+//     cityImageEl.innerHTML = cityImageDisplay
+//     cityTitle.textContent = data.results[0].name
+//     stateSubtitle.textContent = data.results[0].parent_id
+//     snippetEl.textContent = data.results[0].snippet
+// }
 
 
 
@@ -140,6 +141,7 @@ function getCountryOption() {
     var selectElement = document.querySelector('#selectCountry');
     var output = selectElement.value;
     var CountryIndex = parseInt(output)
+    debugger
     getCountryCovidInfo(CountryIndex);
 }
 
@@ -150,10 +152,21 @@ var getCountryCovidInfo = function (output) {
                 response.json().then(function (data) {
                     console.log(data);
                     console.log(data.Countries[output].TotalConfirmed)
-                    displayCovidInfo(data, output)
+                    displayCountryCovidInfo(data, output)
+                    
                 })
             }
         })
+}
+
+var displayCountryCovidInfo = function (data, output) {
+    var totalCountryCase = data.Countries[output].TotalConfirmed
+    var newCountryCase = data.Countries[output].NewConfirmed
+    
+    var countryInfo = document.getElementById("country")
+    var newCases = document.getElementById("new-cases")
+    countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
+    newCases.innerHTML = "New Cases in Country: " + newCountryCase
 }
 
 function getStateOption() {
@@ -170,26 +183,22 @@ var getStateCovidInfo = function (StateIndex) {
                 response.json().then(function (data) {
                     console.log(data);
                     console.log(data.locations[StateIndex].latest.confirmed)
-                    displayCovidInfo(data, StateIndex)
+                    //debugger
+                    displayStateCovidInfo(data, StateIndex)
+                    console.log(StateIndex)
+                  
                 })
             }
         })
 }
 
-var displayCovidInfo = function (data, output, StateIndex) {
-    var totalCountryCase = data.Countries[output].TotalConfirmed
-    var newCountryCase = data.Countries[output].NewConfirmed
-    var totalStateCase = data.locations[StateIndex].latest.confirmed
-   
 
-    var countryInfo = document.getElementById("country")
-    var stateInfo = document.getElementById("state")
-    var newCases = document.getElementById("new-cases")
+var displayStateCovidInfo = function (data, StateIndex) {
     
-
-    countryInfo.innerHTML = "Total Cases: " + totalCountryCase
-    stateInfo.innerHTML = "Total Cases: " + totalStateCase
-    newCases.innerHTML = "New Cases: " + newCountryCase
+    var totalStateCase = data.locations[StateIndex].latest.confirmed
+    var stateInfo = document.getElementById("state")
+    stateInfo.innerHTML = "Total Cases in State: " + totalStateCase
+   
 
 }
 
