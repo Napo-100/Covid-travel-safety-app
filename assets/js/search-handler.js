@@ -10,9 +10,10 @@ var searchHandler = function (cityName) {
     console.log(cityName);
     if (cityName) {
         // getWeatherInfo(cityName);
-        getCovidInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
+        getCountryOption();
+        getStateOption();
     } else {
         swal("You entered an invalid city name!", "Please enter a valid one");
     }
@@ -35,29 +36,44 @@ var clickCity = function () {
     getWeatherInfo(cityName);
 }
 
-// Google news API
-var getCovidInfo = function (cityName) {
+
+function getCountryOption() {
+    var selectElement = document.querySelector('#selectCountry');
+    var output = selectElement.value;
+    var CountryIndex = parseInt(output)
+    getCountryCovidInfo(CountryIndex);
+}
+
+var getCountryCovidInfo = function (output) {
     fetch("https://api.covid19api.com/summary")
-        .then((res) => {
-            console.log(res);
-            return res.json();
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    console.log(data.Countries[output].NewConfirmed)
+                })
+            }
         })
-        .then((res2) => console.log(res2));
+}
 
+function getStateOption() {
+    var selectElement = document.querySelector('#selectCountry');
+    var output = selectElement.value;
+    var StateIndex = parseInt(output)
+    getStateCovidInfo(StateIndex);
+}
 
+var getStateCovidInfo = function (output) {
+    fetch("https://coronavirus-us-api.herokuapp.com/api/state/all")
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    // console.log(data.Countries[output].NewConfirmed)
+                })
+            }
+        })
+}
 
-
-    // var CovidURL = "https://api.traveladviceapi.com/search/US&apiKey=727dfe91-8715-4f37-be24-4028057d3a0f"
-
-    // fetch(CovidURL, { headers: { 'X-Access-Token': '581eca26-2120-40e7-9e24-6bece2d8fd5e' } })
-    //     .then(function (response) {
-    //         return response.json().then(function (data) {
-    //             console.log(data);
-    //         })
-
-    //         // else {
-    //         //     alert("Error: " + response.statusText);}
-    //     })
-};
 
 searchBtn.addEventListener("click", searchHandler);
