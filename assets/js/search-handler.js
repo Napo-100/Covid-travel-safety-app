@@ -2,7 +2,7 @@ var searchBtn = document.getElementById("search-btn");
 var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
-
+var tourCountry = document.querySelector("#selectCountry")
 var input = document.getElementById('search-input');
 //maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 // var autocomplete = new google.maps.places.Autocomplete(input);
@@ -31,7 +31,17 @@ var searchHandler = function (cityName) {
 var getTourismInfo = function (searchInput) {
     var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
     //var formatImage = "&image_sizes=medium"
-    var tourismApi = "https://www.triposo.com/api/20200803/location.json?id=" + searchInput + accountParams;
+   
+    //var text = getSelectedText('selectCountry');
+
+    //var tourCountryName = "part_of=" + text
+    //var tourState = getElementById("selectState")
+    // var tourStateName = tourState.textContent.trim
+    //debugger
+    //var searchParams = tourCountryName + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    var searchParams = "tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+
+    var tourismApi = "https://www.triposo.com/api/20200803/location.json?" + searchParams + accountParams;
 
     fetch(tourismApi)
         .then(function (response) {
@@ -175,6 +185,18 @@ var getStateCovidInfo = function (StateIndex) {
             }
         })
 }
+
+
+function getSelectedText(elementId) {
+    var elt = document.getElementById(elementId);
+
+    if (elt.selectedIndex == -1)
+        return null;
+
+    return elt.options[elt.selectedIndex].text;
+}
+
+
 
 
 
