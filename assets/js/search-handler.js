@@ -150,7 +150,7 @@ var getCountryCovidInfo = function (output) {
                 response.json().then(function (data) {
                     console.log(data);
                     console.log(data.Countries[output].TotalConfirmed)
-                    
+                    displayCovidInfo(data, output)
                 })
             }
         })
@@ -176,7 +176,22 @@ var getStateCovidInfo = function (StateIndex) {
         })
 }
 
+var displayCovidInfo = function (data, output, StateIndex) {
+    var totalCountryCase = data.Countries[output].TotalConfirmed
+    var newCountryCase = data.Countries[output].NewConfirmed
+    var totalStateCase = data.locations[StateIndex].latest.confirmed
+   
 
+    var countryInfo = document.getElementById("country")
+    var stateInfo = document.getElementById("state")
+    var newCases = document.getElementById("new-cases")
+    
+
+    countryInfo.innerHTML = "Total Cases: " + totalCountryCase
+    stateInfo.innerHTML = "Total Cases: " + totalStateCase
+    newCases.innerHTML = "New Cases: " + newCountryCase
+
+}
 
 searchBtn.addEventListener("click", searchHandler);
 searchInput.addEventListener("keyup", function (event) {
