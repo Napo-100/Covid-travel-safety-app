@@ -4,6 +4,7 @@ var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
 var tourCountry = document.querySelector("#selectCountry")
 var input = document.getElementById('search-input');
+var newsArticleEL = document.querySelector("#news-articles")
 //maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 // var autocomplete = new google.maps.places.Autocomplete(input);
 
@@ -15,6 +16,7 @@ var searchHandler = function (cityName) {
     if (cityName) {
         getTourismInfo(cityName)
         getWeatherInfo(cityName);
+        getNewsInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
         getCountryOption();
@@ -26,6 +28,100 @@ var searchHandler = function (cityName) {
         swal("You entered an invalid city name!", "Please enter a valid one");
     }
 };
+
+
+
+
+
+
+
+var getNewsInfo = function (searchInput){
+var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput +' AND Covid&token=8fbabf2f0a166fc056135196cae0e0b0&lang=en'
+    
+fetch(newsUrl)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    //var imageCount = data.results[0].images.length
+                    //console.log(imageCount)
+                    displayNewsInfo(data);
+                })
+            }
+        })
+
+}
+
+var displayNewsInfo = function(newsData){
+     var articles = newsData.articles.length
+    
+     console.log(articles)
+     newsArticleEL.textContent = ""
+    
+     for (var i=0; i < articles; i++){
+
+        var newsSource = newsData.articles[i].source.name
+        console.log(newsSource)
+        var newsDescription = newsData.articles[i].description
+        console.log(newsDescription)
+        var newsHeadline = newsData.articles[i].title
+        console.log(newsHeadline)
+        var imgSource = newsData.articles[i].image
+        console.log(imgSource)
+        var newsLink = newsData.articles[i].source.url
+
+     var newsParentEL = document.createElement("article")
+     newsParentEL.classList = "media"
+     newsArticleEL.appendChild(newsParentEL)
+    
+     /////////////Media Left Image elements
+     var mediaLeftEl = document.createElement("figure")
+    mediaLeftEl.classList = "media-left"
+    newsParentEL.appendChild(mediaLeftEl)
+
+    var mediaImageContainerEl = document.createElement("p")
+    mediaImageContainerEl.classList = "image is-128x128"
+    mediaLeftEl.appendChild(mediaImageContainerEl)
+
+    var NewsImg = document.createElement("img")
+    NewsImg.setAttribute("src", imgSource)
+    mediaImageContainerEl.appendChild(NewsImg)
+    /////////////////////////////////////////////
+
+    ////////////Media content elements
+    var newsContentEL = document.createElement("div")
+    newsContentEL.classList = "media-content"
+    newsParentEL.appendChild(newsContentEL)
+
+    var mediaContentEl = document.createElement("div")
+    mediaContentEl.classList = "content"
+    newsContentEL.appendChild(mediaContentEl)
+
+    //////////P elements to mediacontentEL
+    var newsPaperEL = document.createElement("p")
+    newsPaperEL.classList = "title is-4"
+    newsPaperEL.textContent = newsSource
+    mediaContentEl.appendChild(newsPaperEL)
+
+    var headLineEl = document.createElement("p")
+    headLineEl.classList = "subtitle is-5"
+    headLineEl.textContent = newsHeadline
+    mediaContentEl.appendChild(headLineEl)
+
+    var newsDescEl = document.createElement("p")
+    newsDescEl.classList = "is-small"
+    newsDescEl.textContent = newsDescription
+    mediaContentEl.appendChild(newsDescEl)
+
+    var newsLinkEl = document.createElement("a")
+    newsLinkEl.setAttribute("href", newsLink)
+    newsLinkEl.innerHTML = "Read More"
+    mediaContentEl.appendChild(newsLinkEl)
+
+    }
+
+ }
+
 
 
 var getTourismInfo = function (searchInput) {
