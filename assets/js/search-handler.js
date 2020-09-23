@@ -15,9 +15,10 @@ var searchHandler = function (cityName) {
         searchInput.value = "";
         getCountryOption();
         getStateOption();
-    } else {
-        swal("You entered an invalid city name!", "Please enter a valid one");
     }
+    //  else {
+    //     swal("You entered an invalid city name!", "Please enter a valid one");
+    // }
 };
 
 // Weather function
