@@ -20,8 +20,10 @@ var searchHandler = function (cityName) {
         getNewsInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
-        getCountryOption();
+        // getCountryOption();
         getStateOption();
+        var capitalizeList = document.querySelector("#search-history")
+        capitalizeList.classList.add("capitalize")
         
         
     }
@@ -227,11 +229,14 @@ var displayWeather = function (data) {
 
 // Adding city search to history 
 var cityHistory = function (city) {
+
     var historyEl = document.createElement('option');
     historyEl.setAttribute("value", city);
     historyEl.setAttribute("id", city)
     historyEl.textContent = city;
-    searchHistory.append(historyEl);
+    historyEl.setAttribute("style", "cursor:pointer")
+    searchHistory.prepend(historyEl);
+    
 
     historyEl.onclick = clickCity;
 }
@@ -240,45 +245,49 @@ var cityHistory = function (city) {
 var clickCity = function () {
     var cityName = this.id;
     getWeatherInfo(cityName);
+    getTourismInfo(cityName);
+    getNewsInfo(cityName);
+    //add state covid data
 }
 
 
-function getCountryOption() {
-    var selectElement = document.querySelector('#selectCountry');
-    var output = selectElement.value;
-    var CountryIndex = parseInt(output)
+// function getCountryOption() {
+//     var selectElement = document.querySelector('#selectCountry');
+//     var country = selectElement.value;
+//     var CountryIndex = parseInt(country)
 
-    getCountryCovidInfo(CountryIndex);
-}
+//     getCountryCovidInfo(CountryIndex);
+// }
 
-var getCountryCovidInfo = function (output) {
-    fetch("https://api.covid19api.com/summary")
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
-                    console.log(data.Countries[output].TotalConfirmed)
-                    displayCountryCovidInfo(data, output)
+// var getCountryCovidInfo = function (countryIndex) {
+//     fetch("https://api.covid19api.com/summary")
+//         .then(function (response) {
+//             if (response.ok) {
+//                 response.json().then(function (data) {
+//                     debugger
+//                     console.log(data);
+//                     console.log(data.Countries[countryIndex].TotalConfirmed)
+//                     displayCountryCovidInfo(data, countryIndex)
                     
-                })
-            }
-        })
-}
+//                 })
+//             }
+//         })
+// }
 
-var displayCountryCovidInfo = function (data, output) {
-    var totalCountryCase = data.Countries[output].TotalConfirmed
-    var newCountryCase = data.Countries[output].NewConfirmed
+// var displayCountryCovidInfo = function (data, countryIndex) {
+//     var totalCountryCase = data.Countries[countryIndex].TotalConfirmed
+//     var newCountryCase = data.Countries[countryIndex].NewConfirmed
     
-    var countryInfo = document.getElementById("country")
-    var newCases = document.getElementById("new-cases")
-    countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
-    newCases.innerHTML = "New Cases in Country: " + newCountryCase
-}
+//     var countryInfo = document.getElementById("country")
+//     var newCases = document.getElementById("new-cases")
+//     countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
+//     newCases.innerHTML = "New Cases in Country: " + newCountryCase
+// }
 
 function getStateOption() {
     var selectElement = document.querySelector('#selectState');
-    var output = selectElement.value;
-    var StateIndex = parseInt(output)
+    var state = selectElement.value;
+    var StateIndex = parseInt(state)
     getStateCovidInfo(StateIndex);
 }
 
@@ -303,7 +312,8 @@ var displayStateCovidInfo = function (data, StateIndex) {
     
     var totalStateCase = data.locations[StateIndex].latest.confirmed
     var stateInfo = document.getElementById("state")
-    stateInfo.innerHTML = "Total Cases in State: " + totalStateCase
+    stateInfo.innerHTML = "Total Cases in " + data.locations[StateIndex].state + ": " + totalStateCase
+    console.log(data.locations[StateIndex].state)
    
 
 }
