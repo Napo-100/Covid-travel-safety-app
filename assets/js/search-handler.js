@@ -39,7 +39,7 @@ var searchHandler = function (cityName) {
 
 
 var getNewsInfo = function (searchInput){
-var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput +' AND Covid&token=8fbabf2f0a166fc056135196cae0e0b0&lang=en'
+var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput +' AND Covid&token=e2f1f4142d0ffc6cc609a9e2831ed7c8&lang=en'
     
 fetch(newsUrl)
         .then(function (response) {
