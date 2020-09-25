@@ -377,8 +377,8 @@ var getCountryLong = function(){
 
 
 searchBtn.addEventListener("click", searchHandler);
-searchInput.addEventListener("keyup", function (event) {
-    if (event.key === 13) {
-        searchHandler(cityName)
-    }
-});
+// searchInput.addEventListener("keyup", function (event) {
+//     if (event.key === 13) {
+//         searchHandler(cityName)
+//     }
+// });
