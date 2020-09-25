@@ -31,8 +31,10 @@ function getAddressInfo(){
 // Search button function
 var searchHandler = function (cityName) {
     cityName.preventDefault();
-    var cityName = searchInput.value.trim();
-    console.log(cityName);
+    $("#search-btn").classList = "button is-rounded is-info mt-3 hide"
+    $("#search-btn").hide();
+    var cityName = getCityName();
+
     if (cityName) {
         $("#Main-container").removeClass("hide")
         getTourismInfo(cityName)
@@ -149,16 +151,17 @@ var displayNewsInfo = function(newsData){
 
 var getTourismInfo = function (searchInput) {
     var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
-    //var formatImage = "&image_sizes=medium"
-   
-    //var text = getSelectedText('selectCountry');
-
-    //var tourCountryName = "part_of=" + text
-    //var tourState = getElementById("selectState")
-    // var tourStateName = tourState.textContent.trim
+    var shortState = getStateShort();
+    var shortCountry = getCountryShort();
     //debugger
-    //var searchParams = tourCountryName + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
-    var searchParams = "tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    if(shortState === "Null"){
+        var searchParams = "countrycode=" + shortCountry + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    } else{
+        var searchParams = "us_statecode=" + shortState + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    }
+
+
+    
 
     var tourismApi = "https://www.triposo.com/api/20200803/location.json?" + searchParams + accountParams;
 
@@ -187,9 +190,18 @@ var displayTourismInfo = function (data) {
     var stateSubtitle = document.querySelector('#state-subtitle')
     var snippetEl = document.querySelector('#city-snippet')
 
+    var LongState = getStateLong();
+    var longCountry = getCountryLong();
+
     cityImageEl.innerHTML = cityImageDisplay
     cityTitle.textContent = data.results[0].name
-    stateSubtitle.textContent = data.results[0].parent_id
+    
+    if(LongState === "Null"){
+        stateSubtitle.textContent = longCountry
+    } else {
+        stateSubtitle.textContent = LongState
+    }
+    
     snippetEl.textContent = data.results[0].snippet
 }
 
@@ -242,7 +254,7 @@ var displayWeather = function (data) {
     // shows current weather
     weatherTitle.innerHTML = "Current Weather"
     iconToday.innerHTML = iconDisplay;
-    tempToday.innerHTML = "Temprature: " + currentTemp;
+    tempToday.innerHTML = "Temperature: " + currentTemp;
     humidToday.innerHTML = "Humidity: " + currentHumid;
     windToday.innerHTML = "Winds: " + currentWind;
 }
@@ -336,9 +348,33 @@ var displayStateCovidInfo = function (data, StateIndex) {
     var stateInfo = document.getElementById("state")
     stateInfo.innerHTML = "Total Cases in " + data.locations[StateIndex].state + ": " + totalStateCase
     console.log(data.locations[StateIndex].state)
-   
-
 }
+
+
+//Pull any metadata from google places API
+var getCityName = function(){
+    var cityItem = localStorage.getItem('currentCity')
+    return cityItem;
+}
+var getStateLong = function(){
+    var stateItem = localStorage.getItem('currentStateLong')
+    return stateItem;
+}
+var getStateShort = function(){
+    var stateItem = localStorage.getItem('currentStateShort')
+    return stateItem;
+}
+var getCountryShort = function(){
+    var countryItem = localStorage.getItem('currentCountryShort')
+    return countryItem;
+}
+var getCountryLong = function(){
+    var countryItem = localStorage.getItem('currentCountryLong')
+    return countryItem;
+}
+
+
+
 
 searchBtn.addEventListener("click", searchHandler);
 searchInput.addEventListener("keyup", function (event) {
