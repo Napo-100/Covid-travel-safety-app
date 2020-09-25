@@ -3,10 +3,30 @@ var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
 var tourCountry = document.querySelector("#selectCountry")
-var input = document.getElementById('search-input');
+
 var newsArticleEL = document.querySelector("#news-articles")
 //maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-// var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+
+
+
+function getAddressInfo(){
+ 
+    var place = autocomplete.getPlace();
+    console.log(place)
+    for (i=0; i < place.address_components.length; i++) {
+        var addressType = component.types[0];
+        console.log(addressType)
+        // if (componentForm[addressType]) {
+        //   const val = component[componentForm[addressType]];
+        //   document.getElementById(addressType).value = val;
+        // }
+      }
+}
+
+
+
 
 // Search button function
 var searchHandler = function (cityName) {
@@ -306,6 +326,8 @@ var getStateCovidInfo = function (StateIndex) {
             }
         })
 }
+
+
 
 
 var displayStateCovidInfo = function (data, StateIndex) {
