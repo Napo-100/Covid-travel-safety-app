@@ -3,9 +3,10 @@ var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
 var tourCountry = document.querySelector("#selectCountry")
-var input = document.getElementById('search-input');
+
 var newsArticleEL = document.querySelector("#news-articles")
 //maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+<<<<<<< HEAD
 var autocomplete = new google.maps.places.Autocomplete(input);
 console.log(autocomplete.value);
 // var formEl = autocomplete.split(",").trim;
@@ -15,12 +16,37 @@ console.log(autocomplete.value);
 // var date_updated = StateStats.last_updated // already a string
 // var latestConfirmed = floridaStats.latest.confirmed // confirmed number
 // var latestDeaths = floridaStats.latest.deaths // deaths number
+=======
+
+
+
+
+
+function getAddressInfo(){
+ 
+    var place = autocomplete.getPlace();
+    console.log(place)
+    for (i=0; i < place.address_components.length; i++) {
+        var addressType = component.types[0];
+        console.log(addressType)
+        // if (componentForm[addressType]) {
+        //   const val = component[componentForm[addressType]];
+        //   document.getElementById(addressType).value = val;
+        // }
+      }
+}
+
+
+
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
 
 // Search button function
 var searchHandler = function (cityName) {
     cityName.preventDefault();
-    var cityName = searchInput.value.trim();
-    console.log(cityName);
+    $("#search-btn").classList = "button is-rounded is-info mt-3 hide"
+    $("#search-btn").hide();
+    var cityName = getCityName();
+
     if (cityName) {
         $("#Main-container").removeClass("hide")
         getTourismInfo(cityName)
@@ -28,10 +54,17 @@ var searchHandler = function (cityName) {
         getNewsInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
-        getCountryOption();
+        // getCountryOption();
         getStateOption();
+<<<<<<< HEAD
 
 
+=======
+        var capitalizeList = document.querySelector("#search-history")
+        capitalizeList.classList.add("capitalize")
+        
+        
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
     }
     else {
         swal("You entered an invalid city name!", "Please enter a valid one");
@@ -41,7 +74,19 @@ var searchHandler = function (cityName) {
 var getNewsInfo = function (searchInput) {
     var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput + ' AND Covid&token=8fbabf2f0a166fc056135196cae0e0b0&lang=en'
 
+<<<<<<< HEAD
     fetch(newsUrl)
+=======
+
+
+
+
+
+var getNewsInfo = function (searchInput){
+var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput +' AND Covid&token=e2f1f4142d0ffc6cc609a9e2831ed7c8&lang=en'
+    
+fetch(newsUrl)
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
@@ -127,6 +172,7 @@ var displayNewsInfo = function (newsData) {
 
 var getTourismInfo = function (searchInput) {
     var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
+<<<<<<< HEAD
     //var formatImage = "&image_sizes=medium"
 
     //var text = getSelectedText('selectCountry');
@@ -134,9 +180,19 @@ var getTourismInfo = function (searchInput) {
     //var tourCountryName = "part_of=" + text
     //var tourState = getElementById("selectState")
     // var tourStateName = tourState.textContent.trim
+=======
+    var shortState = getStateShort();
+    var shortCountry = getCountryShort();
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
     //debugger
-    //var searchParams = tourCountryName + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
-    var searchParams = "tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    if(shortState === "Null"){
+        var searchParams = "countrycode=" + shortCountry + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    } else{
+        var searchParams = "us_statecode=" + shortState + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    }
+
+
+    
 
     var tourismApi = "https://www.triposo.com/api/20200803/location.json?" + searchParams + accountParams;
 
@@ -152,6 +208,33 @@ var getTourismInfo = function (searchInput) {
             }
         })
 
+<<<<<<< HEAD
+=======
+var displayTourismInfo = function (data) {
+    console.log(data)
+    //debugger
+    //console.log(data.results[0].images[9].source_url)
+    var cityImageSrc = data.results[0].images[0].source_url
+    var cityImageDisplay = `<img src="${cityImageSrc}"/>`
+    var cityImageEl = document.querySelector('#city-display')
+    var cityTitle = document.querySelector('#city-title')
+    var stateSubtitle = document.querySelector('#state-subtitle')
+    var snippetEl = document.querySelector('#city-snippet')
+
+    var LongState = getStateLong();
+    var longCountry = getCountryLong();
+
+    cityImageEl.innerHTML = cityImageDisplay
+    cityTitle.textContent = data.results[0].name
+    
+    if(LongState === "Null"){
+        stateSubtitle.textContent = longCountry
+    } else {
+        stateSubtitle.textContent = LongState
+    }
+    
+    snippetEl.textContent = data.results[0].snippet
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
 }
 
 // Weather function
@@ -197,18 +280,21 @@ var displayWeather = function (data) {
     // shows current weather
     weatherTitle.innerHTML = "Current Weather"
     iconToday.innerHTML = iconDisplay;
-    tempToday.innerHTML = "Temprature: " + currentTemp;
+    tempToday.innerHTML = "Temperature: " + currentTemp;
     humidToday.innerHTML = "Humidity: " + currentHumid;
     windToday.innerHTML = "Winds: " + currentWind;
 }
 
 // Adding city search to history 
 var cityHistory = function (city) {
+
     var historyEl = document.createElement('option');
     historyEl.setAttribute("value", city);
     historyEl.setAttribute("id", city)
     historyEl.textContent = city;
-    searchHistory.append(historyEl);
+    historyEl.setAttribute("style", "cursor:pointer")
+    searchHistory.prepend(historyEl);
+    
 
     historyEl.onclick = clickCity;
 }
@@ -217,8 +303,12 @@ var cityHistory = function (city) {
 var clickCity = function () {
     var cityName = this.id;
     getWeatherInfo(cityName);
+    getTourismInfo(cityName);
+    getNewsInfo(cityName);
+    //add state covid data
 }
 
+<<<<<<< HEAD
 function getCountryOption() {
     var selectElement = document.querySelector('#selectCountry');
     var output = selectElement.value;
@@ -250,11 +340,46 @@ var displayCountryCovidInfo = function (data, output) {
     countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
     newCases.innerHTML = "New Cases in Country: " + newCountryCase
 }
+=======
+
+// function getCountryOption() {
+//     var selectElement = document.querySelector('#selectCountry');
+//     var country = selectElement.value;
+//     var CountryIndex = parseInt(country)
+
+//     getCountryCovidInfo(CountryIndex);
+// }
+
+// var getCountryCovidInfo = function (countryIndex) {
+//     fetch("https://api.covid19api.com/summary")
+//         .then(function (response) {
+//             if (response.ok) {
+//                 response.json().then(function (data) {
+//                     debugger
+//                     console.log(data);
+//                     console.log(data.Countries[countryIndex].TotalConfirmed)
+//                     displayCountryCovidInfo(data, countryIndex)
+                    
+//                 })
+//             }
+//         })
+// }
+
+// var displayCountryCovidInfo = function (data, countryIndex) {
+//     var totalCountryCase = data.Countries[countryIndex].TotalConfirmed
+//     var newCountryCase = data.Countries[countryIndex].NewConfirmed
+    
+//     var countryInfo = document.getElementById("country")
+//     var newCases = document.getElementById("new-cases")
+//     countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
+//     newCases.innerHTML = "New Cases in Country: " + newCountryCase
+// }
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
 
 function getStateOption() {
     var selectElement = document.querySelector('#selectState');
-    var output = selectElement.value;
-    var StateIndex = parseInt(output)
+    var state = selectElement.value;
+    var StateIndex = parseInt(state)
     getStateCovidInfo(StateIndex);
 }
 
@@ -276,13 +401,50 @@ var getStateCovidInfo = function (StateIndex) {
 
 var displayStateCovidInfo2 = function (data) {
 
+<<<<<<< HEAD
     var StateStats = data.locations.find((location) => location.id.includes("Florida"))
     // var date_updated = StateStats.last_updated // already a string
     var latestConfirmed = StateStats.latest.confirmed // confirmed number
     // var latestDeaths = floridaStats.latest.deaths // deaths number
     var stateInfo = document.getElementById("state")
     stateInfo.innerHTML = "Total Cases in State: " + latestConfirmed
+=======
+
+
+var displayStateCovidInfo = function (data, StateIndex) {
+    
+    var totalStateCase = data.locations[StateIndex].latest.confirmed
+    var stateInfo = document.getElementById("state")
+    stateInfo.innerHTML = "Total Cases in " + data.locations[StateIndex].state + ": " + totalStateCase
+    console.log(data.locations[StateIndex].state)
 }
+
+
+//Pull any metadata from google places API
+var getCityName = function(){
+    var cityItem = localStorage.getItem('currentCity')
+    return cityItem;
+}
+var getStateLong = function(){
+    var stateItem = localStorage.getItem('currentStateLong')
+    return stateItem;
+}
+var getStateShort = function(){
+    var stateItem = localStorage.getItem('currentStateShort')
+    return stateItem;
+}
+var getCountryShort = function(){
+    var countryItem = localStorage.getItem('currentCountryShort')
+    return countryItem;
+>>>>>>> 49d723bb94f6035b93ccbdaee1170927a5bc2a9f
+}
+var getCountryLong = function(){
+    var countryItem = localStorage.getItem('currentCountryLong')
+    return countryItem;
+}
+
+
+
 
 // var displayStateCovidInfo = function (data, StateIndex) {
 
@@ -292,8 +454,8 @@ var displayStateCovidInfo2 = function (data) {
 // }
 
 searchBtn.addEventListener("click", searchHandler);
-searchInput.addEventListener("keyup", function (event) {
-    if (event.key === 13) {
-        searchHandler(cityName)
-    }
-});
+// searchInput.addEventListener("keyup", function (event) {
+//     if (event.key === 13) {
+//         searchHandler(cityName)
+//     }
+// });

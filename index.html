@@ -38,8 +38,8 @@
     <div class="tile is-ancestor">
         <div class="tile is-parent">
             <form class="tile is-child box">
-                <label class="label">Search</label>
-                <div class="select is-rounded mt-4">
+                <!-- <label class="label">Search</label> -->
+                <!-- <div class="select is-rounded mt-4">
                     <select id="selectCountry">
                         <option disabled selected>Country</option>
                         <option value="0">Afghanistan</option>
@@ -231,83 +231,82 @@
                         <option value="186">Zambia</option>
                         <option value="187">Zimbabwe</option>
                     </select>
-                </div>
+                </div> -->
 
-                <div class="select is-rounded">
+                <!-- <div class="select is-rounded">
                     <select id="selectState">
-                        <option disabled selected>State</option>
-                        <option value="0">Washington</option>
-                        <option value="1">Illinois</option>
-                        <option value="2"> California</option>
+                        <option disabled selected>Pick a State</option>
+                        <option value="48"> Alabama</option>
+                        <option value="46"> Alaska</option>
                         <option value="3"> Arizona</option>
-                        <option value="4"> Massachusetts</option>
-                        <option value="5"> Wisconsin</option>
-                        <option value="6"> Texas</option>
-                        <option value="7"> Nebraska</option>
-                        <option value="8"> Utah</option>
-                        <option value="9"> Oregon</option>
-                        <option value="10"> Florida</option>
-                        <option value="11">New York</option>
-                        <option value="12"> Rhode Island</option>
-                        <option value="13"> Georgia</option>
-                        <option value="14"> New Hampshire</option>
-                        <option value="15"> North Carolina</option>
-                        <option value="16"> New Jersey</option>
+                        <option value="39"> Arkansas</option>
+                        <option value="2"> California</option>
                         <option value="17"> Colorado</option>
-                        <option value="18"> Maryland</option>
-                        <option value="19"> Nevada</option>
-                        <option value="20"> Tennessee</option>
-                        <option value="21"> Hawaii</option>
-                        <option value="22"> Indiana</option>
-                        <option value="23"> Kentucky</option>
-                        <option value="24"> Minnesota</option>
-                        <option value="25"> Oklahoma</option>
-                        <option value="26"> Pennsylvania</option>
-                        <option value="27"> South Carolina</option>
+                        <option value="33"> Connecticut</option>
+                        <option value="40"> Delaware</option>
                         <option value="28"> District of Columbia</option>
+                        <option value="10"> Florida</option>
+                        <option value="13"> Georgia</option>
+                        <option value="53"> Guam</option>
+                        <option value="21"> Hawaii</option>
+                        <option value="49"> Idaho</option>
+                        <option value="1">Illinois</option>
+                        <option value="22"> Indiana</option>
+                        <option value="34"> Iowa</option>
                         <option value="29"> Kansas</option>
+                        <option value="23"> Kentucky</option>
+                        <option value="35"> Louisiana</option>
+                        <option value="47"> Maine</option>
+                        <option value="18"> Maryland</option>
+                        <option value="4"> Massachusetts</option>
+                        <option value="37"> Michigan</option>
+                        <option value="24"> Minnesota</option>
+                        <option value="41"> Mississippi</option>
                         <option value="30">Missouri</option>
+                        <option value="50"> Montana</option>
+                        <option value="7"> Nebraska</option>
+                        <option value="19"> Nevada</option>
+                        <option value="14"> New Hampshire</option>
+                        <option value="16"> New Jersey</option>
+                        <option value="42"> New Mexico</option>
+                        <option value="11">New York</option>
+                        <option value="15"> North Carolina</option>
+                        <option value="43"> North Dakota</option>
+                        <option value="55"> Northern Mariana Islands</option>
+                        <option value="36"> Ohio</option>
+                        <option value="25"> Oklahoma</option>
+                        <option value="9"> Oregon</option>
+                        <option value="26"> Pennsylvania</option>
+                        <option value="51"> Puerto Rico</option>
+                        <option value="12"> Rhode Island</option>
+                        <option value="27"> South Carolina</option>
+                        <option value="38"> South Dakota</option>
+                        <option value="20"> Tennessee</option>
+                        <option value="6"> Texas</option>
+                        <option value="8"> Utah</option>
                         <option value="31"> Vermont</option>
                         <option value="32"> Virginia</option>
-                        <option value="33"> Connecticut</option>
-                        <option value="34"> Iowa</option>
-                        <option value="35"> Louisiana</option>
-                        <option value="36"> Ohio</option>
-                        <option value="37"> Michigan</option>
-                        <option value="38"> South Dakota</option>
-                        <option value="39"> Arkansas</option>
-                        <option value="40"> Delaware</option>
-                        <option value="41"> Mississippi</option>
-                        <option value="42"> New Mexico</option>
-                        <option value="43"> North Dakota</option>
-                        <option value="44"> Czech Republic</option>
-                        <option value="45"> Wyoming</option>
-                        <option value="46"> Alaska</option>
-                        <option value="47"> Maine</option>
-                        <option value="48"> Alabama</option>
-                        <option value="49"> Idaho</option>
-                        <option value="50"> Montana</option>
-                        <option value="51"> Puerto Rico</option>
                         <option value="52"> Virgin Islands</option>
-                        <option value="53"> Guam</option>
-                        <option value="54"> West Virginia</option>
-                        <option value="55"> Northern Mariana Islands</option>
+                        <option value="0">Washington</option>
+                        <option value="54"> West Virginia</option>                 
+                        <option value="5"> Wisconsin</option>
+                        <option value="45"> Wyoming</option>
                     </select>
-                </div>
+                </div> -->
 
-                <p class="title">
+                <p class="title mt-2">
                     
-                    <input required type="text" placeholder="Enter City name"
+                    <input required type="text" placeholder="Enter Destination"
                         class="is-rounded column level-left input is-small" id="search-input">
                 </p>
 
                 <p class="subtitle">
-                    <button type="submit" class="button is-rounded is-info mt-3" id="search-btn">Search!</button>
+                    <button type="submit" class="button is-rounded is-info mt-3 hide" id="search-btn">Search!</button>
                 </p>
 
-                <div class="select is-multiple">
-                    <select multiple size="8" id="search-history">
-                    </select>
+                <div class="card is-multiple">
+                    <div multiple size="8" id="search-history">
+                    </div>
                 </div>
             </form>
         </div>
@@ -383,6 +382,56 @@
                 </div>   
             </article> -->
     </div>
+    <script>
+        function googleAutoComplete() {
+            var input = document.getElementById('search-input');
+            var autocomplete = new google.maps.places.Autocomplete(input,
+                { types: ["geocode"] });
+            autocomplete.setFields(["address_component"]);
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var near_place = autocomplete.getPlace();
+                //console.log(near_place)
+                var currentCity = near_place.address_components[0].long_name
+                //check if there is a lower level than admin_1 meaning there are more options than city/country
+                if (near_place.address_components[0].types[0] === "administrative_area_level_1") {
+                    stateCheck = false
+                } else {
+                    stateCheck = true
+                }
+                
+                //Loop through places array to get state and country if applicable
+                for (i = 1; i < near_place.address_components.length; i++) {
+                    var typeCheck = near_place.address_components[i].types[0]
+                    if (stateCheck === true && typeCheck === "administrative_area_level_1") {
+                        var currentStateLong = near_place.address_components[i].long_name
+                        var currentStateShort = near_place.address_components[i].short_name
+                    };
+                    if (typeCheck === "country") {
+                        var currentCountryLong = near_place.address_components[i].long_name
+                        var currentCountryShort = near_place.address_components[i].short_name
+                    }
+                }
+
+                //With information store information
+                if(currentCountryShort==="US"){
+                    localStorage.setItem('currentCity', currentCity)
+                    localStorage.setItem('currentStateLong', currentStateLong)
+                    localStorage.setItem('currentStateShort', currentStateShort)
+                    localStorage.setItem('currentCountryLong', currentCountryLong)
+                    localStorage.setItem('currentCountryShort', currentCountryShort)
+                } else{
+                    localStorage.setItem('currentCity', currentCity)
+                    localStorage.setItem('currentStateLong', "Null")
+                    localStorage.setItem('currentStateShort', "Null")
+                    localStorage.setItem('currentCountryLong', currentCountryLong)
+                    localStorage.setItem('currentCountryShort', currentCountryShort)
+                }
+                $("#search-btn").removeClass("hide")
+                $("#search-btn").show();
+            });
+        }
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
@@ -394,11 +443,12 @@
         integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
         crossorigin="anonymous"></script>
     <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUAjjsvOBEJA5gFf_7hpJ8qtVimWyncXg&libraries=places"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3_1OXSiHTiz9enlZJfCvYytFHgeTUe54&libraries=places&callback=googleAutoComplete"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/search-handler.js"></script>
+    <script src="assets/js/google-places-testing.js"></script>
 </body>
 
 </html>
