@@ -6,7 +6,15 @@ var tourCountry = document.querySelector("#selectCountry")
 var input = document.getElementById('search-input');
 var newsArticleEL = document.querySelector("#news-articles")
 //maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-// var autocomplete = new google.maps.places.Autocomplete(input);
+var autocomplete = new google.maps.places.Autocomplete(input);
+console.log(autocomplete.value);
+// var formEl = autocomplete.split(",").trim;
+
+
+// var StateStats = data.locations.find((location) => location.id.includes(statelEl))
+// var date_updated = StateStats.last_updated // already a string
+// var latestConfirmed = floridaStats.latest.confirmed // confirmed number
+// var latestDeaths = floridaStats.latest.deaths // deaths number
 
 // Search button function
 var searchHandler = function (cityName) {
@@ -22,24 +30,18 @@ var searchHandler = function (cityName) {
         searchInput.value = "";
         getCountryOption();
         getStateOption();
-        
-        
+
+
     }
-     else {
+    else {
         swal("You entered an invalid city name!", "Please enter a valid one");
     }
 };
 
+var getNewsInfo = function (searchInput) {
+    var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput + ' AND Covid&token=8fbabf2f0a166fc056135196cae0e0b0&lang=en'
 
-
-
-
-
-
-var getNewsInfo = function (searchInput){
-var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput +' AND Covid&token=8fbabf2f0a166fc056135196cae0e0b0&lang=en'
-    
-fetch(newsUrl)
+    fetch(newsUrl)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
@@ -53,13 +55,13 @@ fetch(newsUrl)
 
 }
 
-var displayNewsInfo = function(newsData){
-     var articles = newsData.articles.length
-    
-     console.log(articles)
-     newsArticleEL.textContent = ""
-    
-     for (var i=0; i < articles; i++){
+var displayNewsInfo = function (newsData) {
+    var articles = newsData.articles.length
+
+    console.log(articles)
+    newsArticleEL.textContent = ""
+
+    for (var i = 0; i < articles; i++) {
 
         var newsSource = newsData.articles[i].source.name
         console.log(newsSource)
@@ -71,64 +73,62 @@ var displayNewsInfo = function(newsData){
         console.log(imgSource)
         var newsLink = newsData.articles[i].source.url
 
-     var newsParentEL = document.createElement("article")
-     newsParentEL.classList = "media"
-     newsArticleEL.appendChild(newsParentEL)
-    
-     /////////////Media Left Image elements
-     var mediaLeftEl = document.createElement("figure")
-    mediaLeftEl.classList = "media-left"
-    newsParentEL.appendChild(mediaLeftEl)
+        var newsParentEL = document.createElement("article")
+        newsParentEL.classList = "media"
+        newsArticleEL.appendChild(newsParentEL)
 
-    var mediaImageContainerEl = document.createElement("p")
-    mediaImageContainerEl.classList = "image is-128x128"
-    mediaLeftEl.appendChild(mediaImageContainerEl)
+        /////////////Media Left Image elements
+        var mediaLeftEl = document.createElement("figure")
+        mediaLeftEl.classList = "media-left"
+        newsParentEL.appendChild(mediaLeftEl)
 
-    var NewsImg = document.createElement("img")
-    NewsImg.setAttribute("src", imgSource)
-    mediaImageContainerEl.appendChild(NewsImg)
-    /////////////////////////////////////////////
+        var mediaImageContainerEl = document.createElement("p")
+        mediaImageContainerEl.classList = "image is-128x128"
+        mediaLeftEl.appendChild(mediaImageContainerEl)
 
-    ////////////Media content elements
-    var newsContentEL = document.createElement("div")
-    newsContentEL.classList = "media-content"
-    newsParentEL.appendChild(newsContentEL)
+        var NewsImg = document.createElement("img")
+        NewsImg.setAttribute("src", imgSource)
+        mediaImageContainerEl.appendChild(NewsImg)
+        /////////////////////////////////////////////
 
-    var mediaContentEl = document.createElement("div")
-    mediaContentEl.classList = "content"
-    newsContentEL.appendChild(mediaContentEl)
+        ////////////Media content elements
+        var newsContentEL = document.createElement("div")
+        newsContentEL.classList = "media-content"
+        newsParentEL.appendChild(newsContentEL)
 
-    //////////P elements to mediacontentEL
-    var newsPaperEL = document.createElement("p")
-    newsPaperEL.classList = "title is-4"
-    newsPaperEL.textContent = newsSource
-    mediaContentEl.appendChild(newsPaperEL)
+        var mediaContentEl = document.createElement("div")
+        mediaContentEl.classList = "content"
+        newsContentEL.appendChild(mediaContentEl)
 
-    var headLineEl = document.createElement("p")
-    headLineEl.classList = "subtitle is-5"
-    headLineEl.textContent = newsHeadline
-    mediaContentEl.appendChild(headLineEl)
+        //////////P elements to mediacontentEL
+        var newsPaperEL = document.createElement("p")
+        newsPaperEL.classList = "title is-4"
+        newsPaperEL.textContent = newsSource
+        mediaContentEl.appendChild(newsPaperEL)
 
-    var newsDescEl = document.createElement("p")
-    newsDescEl.classList = "is-small"
-    newsDescEl.textContent = newsDescription
-    mediaContentEl.appendChild(newsDescEl)
+        var headLineEl = document.createElement("p")
+        headLineEl.classList = "subtitle is-5"
+        headLineEl.textContent = newsHeadline
+        mediaContentEl.appendChild(headLineEl)
 
-    var newsLinkEl = document.createElement("a")
-    newsLinkEl.setAttribute("href", newsLink)
-    newsLinkEl.innerHTML = "Read More"
-    mediaContentEl.appendChild(newsLinkEl)
+        var newsDescEl = document.createElement("p")
+        newsDescEl.classList = "is-small"
+        newsDescEl.textContent = newsDescription
+        mediaContentEl.appendChild(newsDescEl)
+
+        var newsLinkEl = document.createElement("a")
+        newsLinkEl.setAttribute("href", newsLink)
+        newsLinkEl.innerHTML = "Read More"
+        mediaContentEl.appendChild(newsLinkEl)
 
     }
 
- }
-
-
+}
 
 var getTourismInfo = function (searchInput) {
     var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
     //var formatImage = "&image_sizes=medium"
-   
+
     //var text = getSelectedText('selectCountry');
 
     //var tourCountryName = "part_of=" + text
@@ -145,34 +145,14 @@ var getTourismInfo = function (searchInput) {
             if (response.ok) {
                 response.json().then(function (data) {
                     console.log(data);
-                    displayTourismInfo(data);
+                    // displayTourismInfo(data);
                     //var imageCount = data.results[0].images.length
                     //console.log(imageCount)
                 })
             }
         })
-        
+
 }
-
-var displayTourismInfo = function (data) {
-    console.log(data)
-    //debugger
-    //console.log(data.results[0].images[9].source_url)
-    var cityImageSrc = data.results[0].images[0].source_url
-    var cityImageDisplay = `<img src="${cityImageSrc}"/>`
-    var cityImageEl = document.querySelector('#city-display')
-    var cityTitle = document.querySelector('#city-title')
-    var stateSubtitle = document.querySelector('#state-subtitle')
-    var snippetEl = document.querySelector('#city-snippet')
-
-    cityImageEl.innerHTML = cityImageDisplay
-    cityTitle.textContent = data.results[0].name
-    stateSubtitle.textContent = data.results[0].parent_id
-    snippetEl.textContent = data.results[0].snippet
-}
-
-
-
 
 // Weather function
 var getWeatherInfo = function (cityName) {
@@ -192,9 +172,6 @@ var getWeatherInfo = function (cityName) {
             }
         })
 }
-
-
-
 
 // Display weather
 var displayWeather = function (data) {
@@ -242,12 +219,11 @@ var clickCity = function () {
     getWeatherInfo(cityName);
 }
 
-
 function getCountryOption() {
     var selectElement = document.querySelector('#selectCountry');
     var output = selectElement.value;
     var CountryIndex = parseInt(output)
-
+    debugger
     getCountryCovidInfo(CountryIndex);
 }
 
@@ -259,7 +235,7 @@ var getCountryCovidInfo = function (output) {
                     console.log(data);
                     console.log(data.Countries[output].TotalConfirmed)
                     displayCountryCovidInfo(data, output)
-                    
+
                 })
             }
         })
@@ -268,7 +244,7 @@ var getCountryCovidInfo = function (output) {
 var displayCountryCovidInfo = function (data, output) {
     var totalCountryCase = data.Countries[output].TotalConfirmed
     var newCountryCase = data.Countries[output].NewConfirmed
-    
+
     var countryInfo = document.getElementById("country")
     var newCases = document.getElementById("new-cases")
     countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
@@ -290,23 +266,30 @@ var getStateCovidInfo = function (StateIndex) {
                     console.log(data);
                     console.log(data.locations[StateIndex].latest.confirmed)
                     //debugger
-                    displayStateCovidInfo(data, StateIndex)
+                    displayStateCovidInfo2(data)
                     console.log(StateIndex)
-                  
+
                 })
             }
         })
 }
 
+var displayStateCovidInfo2 = function (data) {
 
-var displayStateCovidInfo = function (data, StateIndex) {
-    
-    var totalStateCase = data.locations[StateIndex].latest.confirmed
+    var StateStats = data.locations.find((location) => location.id.includes("Florida"))
+    // var date_updated = StateStats.last_updated // already a string
+    var latestConfirmed = StateStats.latest.confirmed // confirmed number
+    // var latestDeaths = floridaStats.latest.deaths // deaths number
     var stateInfo = document.getElementById("state")
-    stateInfo.innerHTML = "Total Cases in State: " + totalStateCase
-   
-
+    stateInfo.innerHTML = "Total Cases in State: " + latestConfirmed
 }
+
+// var displayStateCovidInfo = function (data, StateIndex) {
+
+//     var totalStateCase = data.locations[StateIndex].latest.confirmed
+//     var stateInfo = document.getElementById("state")
+//     stateInfo.innerHTML = "Total Cases in State: " + totalStateCase
+// }
 
 searchBtn.addEventListener("click", searchHandler);
 searchInput.addEventListener("keyup", function (event) {
