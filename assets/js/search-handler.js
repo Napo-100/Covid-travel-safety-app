@@ -97,6 +97,7 @@ var displayNewsInfo = function (newsData) {
 
         var NewsImg = document.createElement("img")
         NewsImg.setAttribute("src", imgSource)
+        NewsImg.classList = "radius"
         mediaImageContainerEl.appendChild(NewsImg)
         /////////////////////////////////////////////
 
@@ -106,7 +107,7 @@ var displayNewsInfo = function (newsData) {
         newsParentEL.appendChild(newsContentEL)
 
         var mediaContentEl = document.createElement("div")
-        mediaContentEl.classList = "content"
+        mediaContentEl.classList = "content newsback"
         newsContentEL.appendChild(mediaContentEl)
 
         //////////P elements to mediacontentEL
@@ -169,7 +170,7 @@ var displayTourismInfo = function (data) {
     //debugger
     //console.log(data.results[0].images[9].source_url)
     var cityImageSrc = data.results[0].images[0].source_url
-    var cityImageDisplay = `<img src="${cityImageSrc}"/>`
+    var cityImageDisplay = `<img src="${cityImageSrc}" class="radius"/>`
     var cityImageEl = document.querySelector('#city-display')
     var cityTitle = document.querySelector('#city-title')
     var stateSubtitle = document.querySelector('#state-subtitle')
@@ -246,6 +247,7 @@ var cityHistory = function (city) {
     historyEl.setAttribute("id", city)
     historyEl.textContent = city;
     historyEl.setAttribute("style", "cursor:pointer")
+    historyEl.classList = "button is-rounded mt-3"
     searchHistory.prepend(historyEl);
 
 

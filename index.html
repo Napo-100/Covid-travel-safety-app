@@ -21,15 +21,15 @@
 <body>
 
     <header>
-        <section class="mobile hero is-info">
+        <section class="mobile hero">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        TourVid
+                        T<span class="smallHead">OUR</span>V<span class="smallHead">ID</span>
                     </h1>
-                    <h3 class="subtitle">
-                        Your travel safety information guide
-                    </h3>
+                    <h4>
+                        Your travel<br>safety information guide
+                    </h4>
                 </div>
             </div>
         </section>
@@ -37,7 +37,7 @@
 
     <div class="tile is-ancestor">
         <div class="tile is-parent">
-            <form class="tile is-child box">
+            <form class="tile is-child Box">
                 <!-- <label class="label">Search</label> -->
                 <!-- <div class="select is-rounded mt-4">
                     <select id="selectCountry">
@@ -304,20 +304,20 @@
                     <button type="submit" class="button is-rounded is-info mt-3 hide" id="search-btn">Search!</button>
                 </p>
 
-                <div class="card is-multiple">
+                <div class="is-multiple mt-4">
                     <div multiple size="8" id="search-history">
                     </div>
                 </div>
             </form>
         </div>
         <div class="tile is-parent is-9 hide" id="Main-container">
-            <article class="tile is-child box">
+            <article class="tile is-child Box">
                 <div class="tile is-ancestor">
                     <div class="tile is-vertical is-12">
                         <div class="tile">
 
                             <div class="tile is-parent">
-                                <article class="tile is-child notification is-info">
+                                <article class="tile is-child notification is-info radius">
                                     <p class="title" id="city-title">City Name</p>
                                     <p class="subtitle" id="state-subtitle">With an image</p>
                                     <figure id="city-display" class="image is-4by3">
@@ -330,14 +330,14 @@
                                 </article>
                             </div>
                             <div class="tile is-parent is-vertical">
-                                <article class="tile is-child notification is-danger">
+                                <article class="tile is-child notification is-danger radius">
                                     <p class="title">COVID-19 Information</p>
                                     <p class="subtitle mt-4" id="country"></p>
                                     <p class="subtitle" id="new-cases"></p>
                                     <p class="subtitle" id="state"></p>
 
                                 </article>
-                                <article class="tile is-child notification lightblue" id="weather-data">
+                                <article class="tile is-child notification lightblue radius" id="weather-data">
                                     <p class="title mb-0" id="weather-title"></p>
                                     <p id="icon-today"></p>
                                     <p class="subtitle" id="temp-today"></p>
