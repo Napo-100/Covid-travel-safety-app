@@ -21,6 +21,30 @@ function getAddressInfo() {
     }
 }
 
+//Pull any metadata from google places API
+var getCityName = function(){
+    var cityItem = localStorage.getItem('currentCity')
+    return cityItem;
+}
+var getStateLong = function(){
+    var stateItem = localStorage.getItem('currentStateLong')
+    getStateCovidInfo(stateItem)
+    return stateItem;
+}
+var getStateShort = function(){
+    var stateItem = localStorage.getItem('currentStateShort')
+    return stateItem;
+}
+var getCountryShort = function(){
+    var countryItem = localStorage.getItem('currentCountryShort')
+    return countryItem;
+}
+var getCountryLong = function(){
+    var countryItem = localStorage.getItem('currentCountryLong')
+    getCountryCovidInfo(countryItem)
+    return countryItem;
+}
+
 // Search button function
 var searchHandler = function (cityName) {
     cityName.preventDefault();
@@ -35,8 +59,6 @@ var searchHandler = function (cityName) {
         getNewsInfo(cityName);
         cityHistory(cityName);
         searchInput.value = "";
-        // getCountryOption();
-        getStateOption();
         var capitalizeList = document.querySelector("#search-history")
         capitalizeList.classList.add("capitalize")
 
@@ -47,6 +69,156 @@ var searchHandler = function (cityName) {
     }
 };
 
+// Tourism Info
+var getTourismInfo = function (searchInput) {
+    var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
+    var shortState = getStateShort();
+    var shortCountry = getCountryShort();
+    //debugger
+    if (shortState === "Null") {
+        var searchParams = "countrycode=" + shortCountry + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    } else {
+        var searchParams = "us_statecode=" + shortState + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
+    }
+
+
+
+
+    var tourismApi = "https://www.triposo.com/api/20200803/location.json?" + searchParams + accountParams;
+
+    fetch(tourismApi)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    displayTourismInfo(data);
+                    //var imageCount = data.results[0].images.length
+                    //console.log(imageCount)
+                })
+            }
+        })
+
+}
+
+var displayTourismInfo = function (data) {
+    console.log(data)
+    //debugger
+    //console.log(data.results[0].images[9].source_url)
+    var cityImageSrc = data.results[0].images[0].source_url
+    var cityImageDisplay = `<img src="${cityImageSrc}" class="radius"/>`
+    var cityImageEl = document.querySelector('#city-display')
+    var cityTitle = document.querySelector('#city-title')
+    var stateSubtitle = document.querySelector('#state-subtitle')
+    var snippetEl = document.querySelector('#city-snippet')
+
+    var LongState = getStateLong();
+    var longCountry = getCountryLong();
+
+    cityImageEl.innerHTML = cityImageDisplay
+    cityTitle.textContent = data.results[0].name
+
+    if (LongState === "Null") {
+        stateSubtitle.textContent = longCountry
+    } else {
+        stateSubtitle.textContent = LongState
+    }
+
+    snippetEl.textContent = data.results[0].snippet
+}
+
+// COVID-19 Info
+var getStateCovidInfo = function (stateItem) {
+    fetch("https://coronavirus-us-api.herokuapp.com/api/state/all")
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    displayStateCovidInfo(data, stateItem)
+                })
+            }
+        })
+}
+var displayStateCovidInfo = function (data, stateItem) {
+    var stateData = data.locations.find((location) => location.id.includes(stateItem))
+    var date_updated = stateData.last_updated // already a string by the looks of it
+    var latestConfirmed = stateData.latest.confirmed // confirmed number
+    // var latestDeaths = stateItem.latest.deaths // deaths number
+    // var totalStateCase = data.locations[StateIndex].latest.confirmed
+    var stateInfo = document.getElementById("state")
+    stateInfo.innerHTML = "Total Cases in " + stateItem + ": " + latestConfirmed
+}
+var getCountryCovidInfo = function (countryItem) {
+    fetch("https://api.covid19api.com/summary")
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    displayCountryCovidInfo(data, countryItem)
+                })
+            }
+        })
+}
+var displayCountryCovidInfo = function (data, countryItem) {
+    var countryData = data.Countries.find((location) => location.Country.includes(countryItem))
+    var date_updated = countryData.last_updated // already a string by the looks of it
+    var newConfirmed = countryData.NewConfirmed // confirmed number
+    var totalConfirmed = countryData.TotalConfirmed
+
+    var countryInfo = document.getElementById("country")
+    var newCases = document.getElementById("new-cases")
+    countryInfo.innerHTML = "Total Cases in " + countryItem + ": " + totalConfirmed
+    newCases.innerHTML = "New Cases in " + countryItem + ": " + newConfirmed
+}
+
+// Weather function
+var getWeatherInfo = function (cityName) {
+
+    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
+
+    fetch(weatherApi)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    console.log(data);
+                    displayWeather(data)
+                    // cityHistory(cityName);
+                })
+            } else {
+                swal("You entered an invalid city name!", "Please enter a valid one");
+            }
+        })
+}
+
+// Display weather
+var displayWeather = function (data) {
+    var currentTemp = data.main.temp;
+    console.log(currentTemp)
+    var currentHumid = data.main.humidity;
+    console.log(currentHumid)
+    var currentWind = data.wind.speed;
+    console.log(currentWind)
+
+    var currentDate = moment().format("M/D/YYYY")
+    console.log(currentDate)
+
+    var iconDisplay = "<img src= 'http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png' />"
+    console.log(iconDisplay)
+
+    var weatherTitle = document.getElementById("weather-title")
+    var tempToday = document.querySelector("#temp-today")
+    var humidToday = document.querySelector("#humid-today")
+    var windToday = document.querySelector("#wind-today")
+    var iconToday = document.getElementById("icon-today")
+
+    // shows current weather
+    weatherTitle.innerHTML = "Current Weather"
+    iconToday.innerHTML = iconDisplay;
+    tempToday.innerHTML = "Temperature: " + currentTemp;
+    humidToday.innerHTML = "Humidity: " + currentHumid;
+    windToday.innerHTML = "Winds: " + currentWind;
+}
+
+// News Info
 var getNewsInfo = function (searchInput) {
     var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput + ' AND Covid&token=e2f1f4142d0ffc6cc609a9e2831ed7c8&lang=en'
 
@@ -135,109 +307,6 @@ var displayNewsInfo = function (newsData) {
 
 }
 
-var getTourismInfo = function (searchInput) {
-    var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
-    var shortState = getStateShort();
-    var shortCountry = getCountryShort();
-    //debugger
-    if (shortState === "Null") {
-        var searchParams = "countrycode=" + shortCountry + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
-    } else {
-        var searchParams = "us_statecode=" + shortState + "&tag_labels=city&annotate=trigram:" + searchInput + "&trigram=>=0.3"
-    }
-
-
-
-
-    var tourismApi = "https://www.triposo.com/api/20200803/location.json?" + searchParams + accountParams;
-
-    fetch(tourismApi)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
-                    displayTourismInfo(data);
-                    //var imageCount = data.results[0].images.length
-                    //console.log(imageCount)
-                })
-            }
-        })
-
-}
-
-var displayTourismInfo = function (data) {
-    console.log(data)
-    //debugger
-    //console.log(data.results[0].images[9].source_url)
-    var cityImageSrc = data.results[0].images[0].source_url
-    var cityImageDisplay = `<img src="${cityImageSrc}" class="radius"/>`
-    var cityImageEl = document.querySelector('#city-display')
-    var cityTitle = document.querySelector('#city-title')
-    var stateSubtitle = document.querySelector('#state-subtitle')
-    var snippetEl = document.querySelector('#city-snippet')
-
-    var LongState = getStateLong();
-    var longCountry = getCountryLong();
-
-    cityImageEl.innerHTML = cityImageDisplay
-    cityTitle.textContent = data.results[0].name
-
-    if (LongState === "Null") {
-        stateSubtitle.textContent = longCountry
-    } else {
-        stateSubtitle.textContent = LongState
-    }
-
-    snippetEl.textContent = data.results[0].snippet
-}
-
-// Weather function
-var getWeatherInfo = function (cityName) {
-
-    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
-
-    fetch(weatherApi)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
-                    displayWeather(data)
-                    // cityHistory(cityName);
-                })
-            } else {
-                swal("You entered an invalid city name!", "Please enter a valid one");
-            }
-        })
-}
-
-// Display weather
-var displayWeather = function (data) {
-    var currentTemp = data.main.temp;
-    console.log(currentTemp)
-    var currentHumid = data.main.humidity;
-    console.log(currentHumid)
-    var currentWind = data.wind.speed;
-    console.log(currentWind)
-
-    var currentDate = moment().format("M/D/YYYY")
-    console.log(currentDate)
-
-    var iconDisplay = "<img src= 'http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png' />"
-    console.log(iconDisplay)
-
-    var weatherTitle = document.getElementById("weather-title")
-    var tempToday = document.querySelector("#temp-today")
-    var humidToday = document.querySelector("#humid-today")
-    var windToday = document.querySelector("#wind-today")
-    var iconToday = document.getElementById("icon-today")
-
-    // shows current weather
-    weatherTitle.innerHTML = "Current Weather"
-    iconToday.innerHTML = iconDisplay;
-    tempToday.innerHTML = "Temperature: " + currentTemp;
-    humidToday.innerHTML = "Humidity: " + currentHumid;
-    windToday.innerHTML = "Winds: " + currentWind;
-}
 
 // Adding city search to history 
 var cityHistory = function (city) {
@@ -261,93 +330,6 @@ var clickCity = function () {
     getTourismInfo(cityName);
     getNewsInfo(cityName);
     //add state covid data
-}
-
-
-// function getCountryOption() {
-//     var selectElement = document.querySelector('#selectCountry');
-//     var country = selectElement.value;
-//     var CountryIndex = parseInt(country)
-
-//     getCountryCovidInfo(CountryIndex);
-// }
-
-// var getCountryCovidInfo = function (countryIndex) {
-//     fetch("https://api.covid19api.com/summary")
-//         .then(function (response) {
-//             if (response.ok) {
-//                 response.json().then(function (data) {
-//                     debugger
-//                     console.log(data);
-//                     console.log(data.Countries[countryIndex].TotalConfirmed)
-//                     displayCountryCovidInfo(data, countryIndex)
-
-//                 })
-//             }
-//         })
-// }
-
-// var displayCountryCovidInfo = function (data, countryIndex) {
-//     var totalCountryCase = data.Countries[countryIndex].TotalConfirmed
-//     var newCountryCase = data.Countries[countryIndex].NewConfirmed
-
-//     var countryInfo = document.getElementById("country")
-//     var newCases = document.getElementById("new-cases")
-//     countryInfo.innerHTML = "Total Cases in Country: " + totalCountryCase
-//     newCases.innerHTML = "New Cases in Country: " + newCountryCase
-// }
-
-function getStateOption() {
-    var selectElement = document.querySelector('#selectState');
-    var state = selectElement.value;
-    var StateIndex = parseInt(state)
-    getStateCovidInfo(StateIndex);
-}
-
-var getStateCovidInfo = function (StateIndex) {
-    fetch("https://coronavirus-us-api.herokuapp.com/api/state/all")
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
-                    console.log(data.locations[StateIndex].latest.confirmed)
-                    //debugger
-                    displayStateCovidInfo(data, StateIndex)
-                    console.log(StateIndex)
-
-                })
-            }
-        })
-}
-
-var displayStateCovidInfo = function (data, StateIndex) {
-
-    var totalStateCase = data.locations[StateIndex].latest.confirmed
-    var stateInfo = document.getElementById("state")
-    stateInfo.innerHTML = "Total Cases in " + data.locations[StateIndex].state + ": " + totalStateCase
-    console.log(data.locations[StateIndex].state)
-}
-
-//Pull any metadata from google places API
-var getCityName = function () {
-    var cityItem = localStorage.getItem('currentCity')
-    return cityItem;
-}
-var getStateLong = function () {
-    var stateItem = localStorage.getItem('currentStateLong')
-    return stateItem;
-}
-var getStateShort = function () {
-    var stateItem = localStorage.getItem('currentStateShort')
-    return stateItem;
-}
-var getCountryShort = function () {
-    var countryItem = localStorage.getItem('currentCountryShort')
-    return countryItem;
-}
-var getCountryLong = function () {
-    var countryItem = localStorage.getItem('currentCountryLong')
-    return countryItem;
 }
 
 searchBtn.addEventListener("click", searchHandler);

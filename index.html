@@ -35,11 +35,12 @@
         </section>
     </header>
 
-    <div class="tile is-ancestor">
-        <div class="tile is-parent">
-            <form class="tile is-child Box">
-                <!-- <label class="label">Search</label> -->
-                <!-- <div class="select is-rounded mt-4">
+    <div class="mainBackground">
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <form class="tile is-child Box">
+                    <!-- <label class="label">Search</label> -->
+                    <!-- <div class="select is-rounded mt-4">
                     <select id="selectCountry">
                         <option disabled selected>Country</option>
                         <option value="0">Afghanistan</option>
@@ -233,7 +234,7 @@
                     </select>
                 </div> -->
 
-                <!-- <div class="select is-rounded">
+                    <!-- <div class="select is-rounded">
                     <select id="selectState">
                         <option disabled selected>Pick a State</option>
                         <option value="48"> Alabama</option>
@@ -294,73 +295,74 @@
                     </select>
                 </div> -->
 
-                <p class="title mt-2">
+                    <p class="title mt-2">
 
-                    <input required type="text" placeholder="Enter Destination"
-                        class="is-rounded column level-left input is-small" id="search-input">
-                </p>
+                        <input required type="text" placeholder="Enter Destination"
+                            class="is-rounded column level-left input is-small" id="search-input">
+                    </p>
 
-                <p class="subtitle">
-                    <button type="submit" class="button is-rounded is-info mt-3 hide" id="search-btn">Search!</button>
-                </p>
+                    <p class="subtitle">
+                        <button type="submit" class="button is-rounded is-info mt-3 hide"
+                            id="search-btn">Search!</button>
+                    </p>
 
-                <div class="is-multiple mt-4">
-                    <div multiple size="8" id="search-history">
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="tile is-parent is-9 hide" id="Main-container">
-            <article class="tile is-child Box">
-                <div class="tile is-ancestor">
-                    <div class="tile is-vertical is-12">
-                        <div class="tile">
-
-                            <div class="tile is-parent">
-                                <article class="tile is-child notification is-info radius">
-                                    <p class="title" id="city-title">City Name</p>
-                                    <p class="subtitle" id="state-subtitle">With an image</p>
-                                    <figure id="city-display" class="image is-4by3">
-                                        <img src="https://bulma.io/images/placeholders/640x480.png">
-                                    </figure>
-                                    <div class="content">
-                                        <p id="city-snippet">City information text</p>
-                                    </div>
-
-                                </article>
-                            </div>
-                            <div class="tile is-parent is-vertical">
-                                <article class="tile is-child notification is-danger radius">
-                                    <p class="title">COVID-19 Information</p>
-                                    <p class="subtitle mt-4" id="country"></p>
-                                    <p class="subtitle" id="new-cases"></p>
-                                    <p class="subtitle" id="state"></p>
-
-                                </article>
-                                <article class="tile is-child notification lightblue radius" id="weather-data">
-                                    <p class="title mb-0" id="weather-title"></p>
-                                    <p id="icon-today"></p>
-                                    <p class="subtitle" id="temp-today"></p>
-                                    <p class="subtitle" id="humid-today"></p>
-                                    <p class="subtitle" id="wind-today"></p>
-                                </article>
-                            </div>
+                    <div class="is-multiple mt-4">
+                        <div multiple size="8" id="search-history">
                         </div>
-                        <!-- <div class="tile is-parent">
+                    </div>
+                </form>
+            </div>
+            <div class="tile is-parent is-9 hide" id="Main-container">
+                <article class="tile is-child Box">
+                    <div class="tile is-ancestor">
+                        <div class="tile is-vertical is-12">
+                            <div class="tile">
+
+                                <div class="tile is-parent">
+                                    <article class="tile is-child notification radius transparency">
+                                        <p class="title" id="city-title">City Name</p>
+                                        <p class="subtitle" id="state-subtitle">With an image</p>
+                                        <figure id="city-display" class="image is-4by3">
+                                            <img src="https://bulma.io/images/placeholders/640x480.png">
+                                        </figure>
+                                        <div class="content">
+                                            <p id="city-snippet">City information text</p>
+                                        </div>
+
+                                    </article>
+                                </div>
+                                <div class="tile is-parent is-vertical">
+                                    <article class="tile is-child notification is-danger radius">
+                                        <p class="title">COVID-19 Information</p>
+                                        <p class="subtitle mt-4" id="country"></p>
+                                        <p class="subtitle" id="new-cases"></p>
+                                        <p class="subtitle" id="state"></p>
+
+                                    </article>
+                                    <article class="tile is-child notification radius transparency" id="weather-data">
+                                        <p class="title mb-0" id="weather-title"></p>
+                                        <p id="icon-today"></p>
+                                        <p class="subtitle" id="temp-today"></p>
+                                        <p class="subtitle" id="humid-today"></p>
+                                        <p class="subtitle" id="wind-today"></p>
+                                    </article>
+                                </div>
+                            </div>
+                            <!-- <div class="tile is-parent">
                             <article class="tile is-child notification is-primary">
                                 <p class="title">Title</p>
                                 <p class="subtitle">Subtitle</p>
                                 <p class="subtitle">Subtitle</p>
                             </article>
                         </div> -->
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
+            </div>
         </div>
-    </div>
-    <div class="container" id="news-articles">
+        <div class="container" id="news-articles">
 
-        <!-- <article class="media">
+            <!-- <article class="media">
                 <figure class="media-left">
                     <p class="image is-128x128">
                         <img src="https://dmn-dallas-news-prod.cdn.arcpublishing.com/resizer/07zzp-z3Sh48yv-RY4MCtGr8QpY=/1200x630/smart/filters:no_upscale()/cloudfront-us-east-1.images.arcpublishing.com/dmn/ZDX3R734EVBRTAPUZNG2RW2EIA.JPG">
@@ -381,6 +383,7 @@
                     </div>
                 </div>   
             </article> -->
+        </div>
     </div>
     <script>
         function googleAutoComplete() {
