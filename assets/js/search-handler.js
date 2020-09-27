@@ -63,8 +63,8 @@ var searchHandler = function (cityName) {
         searchInput.value = "";
         var capitalizeList = document.querySelector("#search-history")
         capitalizeList.classList.add("capitalize")
-
-
+    } else if (currentStateShort === null || currentStateLong === null) {
+        $("#state").addClass("hide")
     }
     else {
         swal("You entered an invalid city name!", "Please enter a valid one");

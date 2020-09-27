@@ -422,12 +422,14 @@
                     localStorage.setItem('currentStateShort', currentStateShort)
                     localStorage.setItem('currentCountryLong', currentCountryLong)
                     localStorage.setItem('currentCountryShort', currentCountryShort)
+                    $(state).removeClass("hide")
                 } else {
                     localStorage.setItem('currentCity', currentCity)
                     localStorage.setItem('currentStateLong', "Null")
                     localStorage.setItem('currentStateShort', "Null")
                     localStorage.setItem('currentCountryLong', currentCountryLong)
                     localStorage.setItem('currentCountryShort', currentCountryShort)
+                    $(state).addClass("hide")
                 }
                 $("#search-btn").removeClass("hide")
                 $("#search-btn").show();
