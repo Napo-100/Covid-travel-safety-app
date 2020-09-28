@@ -4,6 +4,7 @@ var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
 var tourCountry = document.querySelector("#selectCountry")
 
+
 var newsArticleEL = document.querySelector("#news-articles")
 //maps.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -63,6 +64,7 @@ var searchHandler = function (cityName) {
         searchInput.value = "";
         var capitalizeList = document.querySelector("#search-history")
         capitalizeList.classList.add("capitalize")
+
     } else if (currentStateShort === null || currentStateLong === null) {
         $("#state").addClass("hide")
     }
@@ -94,6 +96,8 @@ var getTourismInfo = function (searchInput) {
                 response.json().then(function (data) {
                     console.log(data);
                     displayTourismInfo(data);
+                    
+                   
                     //var imageCount = data.results[0].images.length
                     //console.log(imageCount)
                 })
@@ -112,12 +116,13 @@ var displayTourismInfo = function (data) {
     var cityTitle = document.querySelector('#city-title')
     var stateSubtitle = document.querySelector('#state-subtitle')
     var snippetEl = document.querySelector('#city-snippet')
+    var tourismPlaceName = data.results[0].name
 
     var LongState = getStateLong();
     var longCountry = getCountryLong();
 
     cityImageEl.innerHTML = cityImageDisplay
-    cityTitle.textContent = data.results[0].name
+    cityTitle.textContent = tourismPlaceName
 
     if (LongState === "Null") {
         stateSubtitle.textContent = longCountry
@@ -126,6 +131,25 @@ var displayTourismInfo = function (data) {
     }
 
     snippetEl.textContent = data.results[0].snippet
+
+    // save data as array in local storage
+    if(localStorage.getItem('tourismPlaceImg') == null){
+        localStorage.setItem('tourismPlaceImg', '[]')
+    }
+    if(localStorage.getItem('tourismPlaceName') == null) {
+        localStorage.setItem('tourismPlaceName', '[]')
+    }
+    var oldImg = JSON.parse(localStorage.getItem('tourismPlaceImg'))
+    var oldName = JSON.parse(localStorage.getItem('tourismPlaceName'))
+    
+    oldImg.push(cityImageSrc)
+    oldName.push(tourismPlaceName)
+
+    var JSONplaceImg = JSON.stringify(oldImg)
+    var JSONplaceName = JSON.stringify(oldName)
+    
+    localStorage.setItem('tourismPlaceImg', JSONplaceImg);
+    localStorage.setItem('tourismPlaceName', JSONplaceName);
 }
 
 // COVID-19 Info
@@ -320,6 +344,7 @@ var cityHistory = function (city) {
     historyEl.setAttribute("style", "cursor:pointer")
     historyEl.classList = "button is-rounded mt-3"
     searchHistory.prepend(historyEl);
+    // localStorage.getItem('tourismPlaceImg')
 
 
     historyEl.onclick = clickCity;
@@ -331,6 +356,7 @@ var clickCity = function () {
     getWeatherInfo(cityName);
     getTourismInfo(cityName);
     getNewsInfo(cityName);
+    
     
 }
 
