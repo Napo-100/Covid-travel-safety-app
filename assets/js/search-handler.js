@@ -132,24 +132,7 @@ var displayTourismInfo = function (data) {
 
     snippetEl.textContent = data.results[0].snippet
 
-    // save data as array in local storage
-    if(localStorage.getItem('tourismPlaceImg') == null){
-        localStorage.setItem('tourismPlaceImg', '[]')
-    }
-    if(localStorage.getItem('tourismPlaceName') == null) {
-        localStorage.setItem('tourismPlaceName', '[]')
-    }
-    var oldImg = JSON.parse(localStorage.getItem('tourismPlaceImg'))
-    var oldName = JSON.parse(localStorage.getItem('tourismPlaceName'))
     
-    oldImg.push(cityImageSrc)
-    oldName.push(tourismPlaceName)
-
-    var JSONplaceImg = JSON.stringify(oldImg)
-    var JSONplaceName = JSON.stringify(oldName)
-    
-    localStorage.setItem('tourismPlaceImg', JSONplaceImg);
-    localStorage.setItem('tourismPlaceName', JSONplaceName);
 }
 
 // COVID-19 Info

@@ -433,6 +433,21 @@
                 }
                 $("#search-btn").removeClass("hide")
                 $("#search-btn").show();
+
+
+                // save place info as an array in local storage
+                if (localStorage.getItem('tourismPlaces') == null) {
+                    localStorage.setItem('tourismPlaces', '[]')
+                }
+                var oldPlace = JSON.parse(localStorage.getItem('tourismPlaces'))
+                var tourismPlace = currentCity +
+                    "&&" + currentStateLong +
+                    "&&" + currentStateShort +
+                    "&&" + currentCountryLong +
+                    "&&" + currentCountryShort
+                oldPlace.push(tourismPlace)
+                var JSONplaces = JSON.stringify(oldPlace)
+                localStorage.setItem('tourismPlaces', JSONplaces);
             });
         }
     </script>
