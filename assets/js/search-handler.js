@@ -1,4 +1,4 @@
-var searchBtn = document.getElementById("search-btn");
+var searchForm = document.getElementById("search-form");
 var searchInput = document.getElementById("search-input");
 var searchHistory = document.getElementById("search-history");
 var display = document.querySelector(".main-container")
@@ -45,22 +45,37 @@ var getCountryLong = function(){
 }
 
 // Search button function
-var searchHandler = function (cityName) {
-    cityName.preventDefault();
+//cityName passing to function originally
+var searchHandler = function (isClicked) {
+    debugger
+    if(!(isClicked===1)){
+        isClicked.preventDefault();
+    }
+    
     $("#search-btn").classList = "button is-rounded is-info mt-3 hide"
     $("#search-btn").hide();
     var cityName = getCityName();
     var stateItem = getStateLong();
     var countryItem = getCountryLong();
-
-    if (cityName) {
+    debugger
+    if(isClicked === 1){
         $("#Main-container").removeClass("hide")
         getStateCovidInfo(stateItem)
         getCountryCovidInfo(countryItem)
         getTourismInfo(cityName)
         getWeatherInfo(cityName);
-        getNewsInfo(cityName);
-        cityHistory(cityName);
+        //getNewsInfo(cityName);
+    } else if (cityName) {
+        debugger
+        $("#Main-container").removeClass("hide")
+        getStateCovidInfo(stateItem)
+        getCountryCovidInfo(countryItem)
+        getTourismInfo(cityName)
+        getWeatherInfo(cityName);
+        //getNewsInfo(cityName);
+        //Step 3: LOCAL STORAGE UPDATE
+        var HistoryStorage = searchInput.value
+        cityHistory(HistoryStorage);
         searchInput.value = "";
         var capitalizeList = document.querySelector("#search-history")
         capitalizeList.classList.add("capitalize")
@@ -71,10 +86,12 @@ var searchHandler = function (cityName) {
     else {
         swal("You entered an invalid city name!", "Please enter a valid one");
     }
+
 };
 
 // Tourism Info
 var getTourismInfo = function (searchInput) {
+    debugger
     var accountParams = "&account=2321I3JB&token=m2u8msmg3otg23mkbqlxtkex4pjpzw58"
     var shortState = getStateShort();
     var shortCountry = getCountryShort();
@@ -137,6 +154,7 @@ var displayTourismInfo = function (data) {
 
 // COVID-19 Info
 var getStateCovidInfo = function (stateItem) {
+    debugger
     fetch("https://coronavirus-us-api.herokuapp.com/api/state/all")
         .then(function (response) {
             if (response.ok) {
@@ -157,6 +175,7 @@ var displayStateCovidInfo = function (data, stateItem) {
     stateInfo.innerHTML = "Total Cases in " + stateItem + ": " + latestConfirmed
 }
 var getCountryCovidInfo = function (countryItem) {
+    debugger
     fetch("https://api.covid19api.com/summary")
         .then(function (response) {
             if (response.ok) {
@@ -181,7 +200,7 @@ var displayCountryCovidInfo = function (data, countryItem) {
 
 // Weather function
 var getWeatherInfo = function (cityName) {
-
+    debugger
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
 
     fetch(weatherApi)
@@ -229,6 +248,7 @@ var displayWeather = function (data) {
 
 // News Info
 var getNewsInfo = function (searchInput) {
+    debugger
     var newsUrl = 'https://gnews.io/api/v4/search?q=' + searchInput + ' AND Covid&token=e2f1f4142d0ffc6cc609a9e2831ed7c8&lang=en'
 
     fetch(newsUrl)
@@ -318,34 +338,104 @@ var displayNewsInfo = function (newsData) {
 
 
 // Adding city search to history 
-var cityHistory = function (city) {
+var cityHistory = function (HistoryCity) {
 
-    var historyEl = document.createElement('option');
-    historyEl.setAttribute("value", city);
-    historyEl.setAttribute("id", city)
-    historyEl.textContent = city;
+    var historyEl = document.createElement('li');
+    historyEl.setAttribute("value", HistoryCity);
+    historyEl.setAttribute("id", HistoryCity)
+    historyEl.textContent = HistoryCity;
     historyEl.setAttribute("style", "cursor:pointer")
     historyEl.classList = "button is-rounded mt-3"
-    searchHistory.prepend(historyEl);
+    searchHistory.appendChild(historyEl);
     // localStorage.getItem('tourismPlaceImg')
 
 
-    historyEl.onclick = clickCity;
+    //historyEl.onclick = clickCity;
+}
+
+var getHistoryCities = function(){
+   // debugger
+    if(localStorage.getItem('tourismPlaces')===null){
+
+    } else{
+        cities = JSON.parse(localStorage.getItem('tourismPlaces'))
+        for(var i=0; i < cities.length; i++){
+            var thisCityArray = cities[i]
+            var cityInfoCheckArray = thisCityArray.split("&&")
+            var HistoryCity = cityInfoCheckArray[0]
+            var historyEl = document.createElement('li');
+            historyEl.setAttribute("value", HistoryCity);
+            historyEl.setAttribute("id", HistoryCity)
+            historyEl.textContent = HistoryCity;
+            historyEl.setAttribute("style", "cursor:pointer")
+            historyEl.classList = "button is-rounded mt-3"
+            searchHistory.appendChild(historyEl);
+            // localStorage.getItem('tourismPlaceImg')
+        
+        
+            //historyEl.onclick = clickCity;
+        }
+    }
+}
+
+var pullHistoryCity = function(cityInfo){
+    cities = JSON.parse(localStorage.getItem('tourismPlaces'))
+    //debugger    
+    for(var i=0; i < cities.length; i++){
+            var thisCityArray = cities[i]
+            var cityInfoCheckArray = thisCityArray.split("&&")
+            var cityInfoCheck = cityInfoCheckArray[0]
+         //Cambridge, MA, USA&&Cambridge&&Massachusetts&&MA&&United States&&US  
+           
+            if(cityInfoCheck === cityInfo){
+                var currentCity = cityInfoCheckArray[1]
+                var currentStateLong = cityInfoCheckArray[2]
+                var currentStateShort = cityInfoCheckArray[3]
+                var currentCountryLong = cityInfoCheckArray[4]
+                var currentCountryShort = cityInfoCheckArray[5]
+                if (currentCountryShort === "US") {
+                    localStorage.setItem('currentCity', currentCity)
+                    localStorage.setItem('currentStateLong', currentStateLong)
+                    localStorage.setItem('currentStateShort', currentStateShort)
+                    localStorage.setItem('currentCountryLong', currentCountryLong)
+                    localStorage.setItem('currentCountryShort', currentCountryShort)
+                    //$(state).removeClass("hide")
+                } else {
+                    localStorage.setItem('currentCity', currentCity)
+                    localStorage.setItem('currentStateLong', "Null")
+                    localStorage.setItem('currentStateShort', "Null")
+                    localStorage.setItem('currentCountryLong', currentCountryLong)
+                    localStorage.setItem('currentCountryShort', currentCountryShort)
+                    //$(state).addClass("hide")
+                }
+            }
+
+            $("#Main-container").removeClass("hide")
+            getStateCovidInfo(currentStateLong)
+            getCountryCovidInfo(currentCountryLong)
+            getTourismInfo(currentCity)
+            getWeatherInfo(currentCity);
+            //getNewsInfo(cityName);
+        }
 }
 
 // function to call back clickable cities from the history
-var clickCity = function () {
-    var cityName = this.id;
-    getWeatherInfo(cityName);
-    getTourismInfo(cityName);
-    getNewsInfo(cityName);
+var clickCity = function (event) {
+    event.preventDefault();
+    var cityName = $(event.target).text();
+    //getWeatherInfo(cityName);
+    //getTourismInfo(cityName);
+    //getNewsInfo(cityName);
     
+    pullHistoryCity(cityName);
     
 }
 
-searchBtn.addEventListener("click", searchHandler);
+searchForm.addEventListener("submit", searchHandler);
+searchHistory.addEventListener("click", clickCity);
 // searchInput.addEventListener("keyup", function (event) {
 //     if (event.key === 13) {
 //         searchHandler(cityName)
 //     }
 // });
+getHistoryCities();
