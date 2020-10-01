@@ -38,7 +38,7 @@
     <div class="mainBackground">
         <div class="tile is-ancestor">
             <div class="tile is-parent">
-                <form class="tile is-child Box">
+                <form class="tile is-child Box" id="search-form">
                     <!-- <label class="label">Search</label> -->
                     <!-- <div class="select is-rounded mt-4">
                     <select id="selectCountry">
@@ -307,8 +307,11 @@
                     </p>
 
                     <div class="is-multiple mt-4">
-                        <div multiple size="8" id="search-history">
-                        </div>
+                        <ul multiple size="8" id="search-history">
+                    
+                        </ul>
+                        <button type="button" class="button is-rounded is-danger mt-3 hide"
+                            id="clear-btn" title="Click To Delete">X</button>
                     </div>
                 </form>
             </div>
@@ -391,11 +394,21 @@
             var autocomplete = new google.maps.places.Autocomplete(input,
                 { types: ["geocode"] });
             autocomplete.setFields(["address_component"]);
-
+            
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                
+                // STEP 1: LOCAL STORAGE UPDATE
+                var inputText = input.value
+                
+                //debugger
                 var near_place = autocomplete.getPlace();
                 //console.log(near_place)
+                if(near_place.address_components){
                 var currentCity = near_place.address_components[0].long_name
+                } else {
+                    swal("You entered an invalid destination!", "Please enter a valid one")
+                    return;
+                }
                 //check if there is a lower level than admin_1 meaning there are more options than city/country
                 if (near_place.address_components[0].types[0] === "administrative_area_level_1") {
                     stateCheck = false
@@ -422,15 +435,48 @@
                     localStorage.setItem('currentStateShort', currentStateShort)
                     localStorage.setItem('currentCountryLong', currentCountryLong)
                     localStorage.setItem('currentCountryShort', currentCountryShort)
+                    //$(state).removeClass("hide")
                 } else {
                     localStorage.setItem('currentCity', currentCity)
                     localStorage.setItem('currentStateLong', "Null")
                     localStorage.setItem('currentStateShort', "Null")
                     localStorage.setItem('currentCountryLong', currentCountryLong)
                     localStorage.setItem('currentCountryShort', currentCountryShort)
+                    //$(state).addClass("hide")
                 }
                 $("#search-btn").removeClass("hide")
                 $("#search-btn").show();
+
+
+                // save place info as an array in local storage
+                if (localStorage.getItem('tourismPlaces') == null) {
+                    localStorage.setItem('tourismPlaces', '[]')
+                }
+                var oldPlace = JSON.parse(localStorage.getItem('tourismPlaces'))
+                // STEP 1: LOCAL STORAGE UPDATE add inputText
+                //debugger
+
+                for (i=0; i < oldPlace.length; i++){
+                    var thisCityString = oldPlace[i]
+                    var cityInfoCheckArray = thisCityString.split("&&")
+                    var cityInfoCheck = cityInfoCheckArray[0]
+                    if(cityInfoCheck === inputText){
+                        swal("You've already searched this destination!")
+                        return;
+                    }
+                }
+                //PUT INSIDE IF STATEMENT
+                var tourismPlace = inputText + "&&" + currentCity +
+                    "&&" + currentStateLong +
+                    "&&" + currentStateShort +
+                    "&&" + currentCountryLong +
+                    "&&" + currentCountryShort
+                oldPlace.push(tourismPlace)
+                var JSONplaces = JSON.stringify(oldPlace)
+                localStorage.setItem('tourismPlaces', JSONplaces);
+                
+                ////////////////////////////////////////////////////
+
             });
         }
     </script>
