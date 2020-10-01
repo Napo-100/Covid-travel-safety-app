@@ -66,7 +66,7 @@ var searchHandler = function (isClicked) {
         getCountryCovidInfo(countryItem)
         getTourismInfo(cityName)
         getWeatherInfo(cityName);
-        getNewsInfo(cityName);
+       getNewsInfo(cityName);
     } else if (cityName) {
         //debugger
         $("#Main-container").removeClass("hide")
@@ -207,17 +207,20 @@ var displayCountryCovidInfo = function (data, countryItem) {
 }
 
 // Weather function
-var getWeatherInfo = function (cityName) {
+var getWeatherInfo = function (cityName, shortState, shortCountry) {
+    var shortState = getStateShort();
+    var shortCountry = getCountryShort();
     //debugger
-    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
+    var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"," + shortState+"," + shortCountry + "&units=imperial&appid=f28282748979d8ef4250a43282c46535";
 
     fetch(weatherApi)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    //console.log(data);
+                    console.log(data);
                     displayWeather(data)
                     // cityHistory(cityName);
+                    console.log(cityName, shortState, shortCountry)
                 })
             } else {
                 swal("You entered an invalid city name!", "Please enter a valid one");
@@ -233,7 +236,10 @@ var displayWeather = function (data) {
     //console.log(currentHumid)
     var currentWind = data.wind.speed;
     //console.log(currentWind)
-
+    var currentCity = data.name;
+    var shortState = getStateShort();
+    var currentCountry = data.sys.country
+    console.log(currentCity)
     var currentDate = moment().format("M/D/YYYY")
     //console.log(currentDate)
 
@@ -247,7 +253,12 @@ var displayWeather = function (data) {
     var iconToday = document.getElementById("icon-today")
 
     // shows current weather
-    weatherTitle.innerHTML = "Current Weather"
+    if(shortState === "Null") {
+        weatherTitle.innerHTML = "Current Weather in " + currentCity +  ", " + currentCountry
+        console.log(shortState)
+    } else {
+        weatherTitle.innerHTML = "Current Weather in " + currentCity + ", " + shortState + ", " + currentCountry
+    }
     iconToday.innerHTML = iconDisplay;
     tempToday.innerHTML = "Temperature: " + currentTemp;
     humidToday.innerHTML = "Humidity: " + currentHumid;
