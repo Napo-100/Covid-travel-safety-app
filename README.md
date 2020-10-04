@@ -6,6 +6,8 @@
    ## Description 
    Travel and tourism information web application that provides current Covid-19 statistics, weather, and news, for domestic (USA) and international destinations. 
 
+   <img src="assets\images\tourvidApp.png">
+
    ## Table of Contents
   * [Installation](#installation)
     
