@@ -18,7 +18,7 @@
     
 
    ## Usage 
-  Enter destination and click Search!
+  Click <a href ="https://napo-100.github.io/Covid-travel-safety-app">here</a> to get started!
 
    ## Credits  
   Bulma, JQuery, Heroku Cornoavirus API, Triposo API, GNews API, Open Weather API, Google Places API  
