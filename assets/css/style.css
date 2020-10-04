@@ -39,7 +39,7 @@ header {
 }
 
 .newsback {
-  background-color: rgba(255, 255, 255, 0.658);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding: 20px;
   box-shadow: 5px 5px 5px black;
@@ -51,7 +51,7 @@ header {
 }
 
 .transparency {
-  background-color:rgba(30, 114, 240, 0.7);
+  background-color:rgba(30, 114, 240, 0.8);
   color: white;
   box-shadow: 5px 5px 5px black;
 }
